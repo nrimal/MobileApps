@@ -1,0 +1,18 @@
+
+(nautilus:2385): GLib-GIO-CRITICAL **: g_dbus_interface_skeleton_unexport: assertion 'interface_->priv->connections != NULL' failed
+
+(nautilus:2385): GLib-GIO-CRITICAL **: g_dbus_interface_skeleton_unexport: assertion 'interface_->priv->connections != NULL' failed
+
+(nautilus:2385): Gtk-CRITICAL **: gtk_icon_theme_get_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
+
+(nautilus:2385): GLib-GObject-WARNING **: invalid (NULL) pointer instance
+
+(nautilus:2385): GLib-GObject-CRITICAL **: g_signal_connect_object: assertion 'G_TYPE_CHECK_INSTANCE (instance)' failed
+WARN  2017-07-11 20:11:45 unity.iconloader IconLoader.cpp:756 Unable to load icon file:/// at size -1x22: Can't open directory
+1499822233807	addons.update-checker	WARN	Update manifest for aushelper@mozilla.org did not contain an updates property
+1499822233825	addons.update-checker	WARN	Update manifest for e10srollout@mozilla.org did not contain an updates property
+1499822233836	addons.update-checker	WARN	Update manifest for webcompat@mozilla.org did not contain an updates property
+1499822233844	addons.update-checker	WARN	Update manifest for firefox@getpocket.com did not contain an updates property
+1499822233884	addons.update-checker	WARN	Update manifest for {972ce4c6-7e08-4474-a285-3208198ce6fd} did not contain an updates property
+1499822234221	addons.xpi	WARN	Add-on firefox-hotfix@mozilla.org is not compatible with application version.
+1499822234386	addons.xpi	WARN	Add-on firefox-hotfix@mozilla.org is not compatible with application version.
