@@ -24,6 +24,7 @@ int main() {
   listen(sd, 5);
   connected_sd = accept(sd, (struct sockaddr *) &from_address, &from_len);
   bzero(buffer, 1000);
+  rc = read(connected_sd, &buffer, 1000)
  
   printf("received the following %s\n", buffer);
 
