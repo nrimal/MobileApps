@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
   int flags = 0;
   int file_size;
   int port = 0;
-  char file_name[20];
+  char file_name[20] = {0};
   char new_file[26];
   struct stat st = {0};
   FILE *file;

@@ -124,7 +124,7 @@ int main(int argc, char* argv[]){
 
 	//if(waitForHandshake(connected, start, current_time, received) == 1){
 	//	memset(received, 0, sizeof(int));
-	rc = write(sd, &file_name, 20);
+	rc = write(sd, file_name, 20);
 	if(rc < 0){
 		perror("Error file name not sent");
 	}
@@ -144,7 +144,7 @@ int main(int argc, char* argv[]){
 		if(items == 0){
 			printf("Error could not read items in from file to transfer\n");
 		}
-		rc = write(sd, buffer, sizeof(buffer)); //End of buffer hopefully won't write garbage
+		rc = write(sd, buffer, items); //End of buffer hopefully won't write garbage
 		if(rc < 0){
 			perror("Error client could not write from file buffer");
 		}
