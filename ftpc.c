@@ -55,6 +55,9 @@ int main(int argc, char* argv[]){
 	char serverIP[29]; //user specified IP
 	int rc = 0; //return code
 	int file_size; //size of file
+	int file_size_send = 0;
+	int file_size_ack = 0;
+	int bytes_read_ack = 0;
 	char* file_name; //input file name
 	time_t start, current_time; //Used to monitor connection time out
 	int connected = 0; 
@@ -63,7 +66,7 @@ int main(int argc, char* argv[]){
 
 
 	if(argc < 4){
-		printf("Usage is client <remote-IP> <remote-port> <local-file-to-transfer>\n");
+		printf("Usage is ./ftpc <remote-IP> <remote-port> <local-file-to-transfer>\n");
 		exit(1);
 	}
 
@@ -101,19 +104,31 @@ int main(int argc, char* argv[]){
 
 	rc = write(sd, &file_size, sizeof(int));
 	if(rc < 0){
-		perror("File size not sent");
+		perror("Error file size not sent");
 	}
-	printf("sent %d bytes\n", rc); //Should be 4	
+	printf("Client sent %d bytes\n", rc); //Should be 4	
+	file_size_send = rc;
+
+	rc = read(sd, &file_size_ack, sizeof(int));
+	if(rc < 0){
+		perror("Error server file size ack not received");
+	}
+	printf("Server received %d bytes\n", rc); //Should be 4	
+	
+	if(file_size_send != file_size_ack){
+		printf("Error server did not receive correct file size\n");
+		exit(1);
+	}
 	//receive a handshake
 	//handshake = waitForHandshake(connected, start, current_time, received)
 
 	//if(waitForHandshake(connected, start, current_time, received) == 1){
 	//	memset(received, 0, sizeof(int));
-		rc = write(sd, &file_name, strlen(file_name));
-		if(rc < 0){
-			perror("File name not sent");
-		}
-		printf("sent %d bytes\n", rc);
+	rc = write(sd, &file_name, 20);
+	if(rc < 0){
+		perror("Error file name not sent");
+	}
+	printf("Client sent %d bytes\n", rc);
 	//}else{
 	//	printf("Error not all bytes were received by the server\n");
 	//	exit(1);
@@ -121,26 +136,32 @@ int main(int argc, char* argv[]){
 
 	//if(waitForHandshake(connected, start, current_time, received) == 1){
 
-		long pos = ftell(file_to_transfer);
-		while((int)pos < file_size){
+	long pos = ftell(file_to_transfer);
+	while((int)pos < file_size){
 	//		memset(received, 0, sizeof(int));
 
-			int items = fread(buffer, 1, 1000, file_to_transfer);
-			if(items == 0){
-				printf("Error could not read items in from file to transfer\n");
-			}
-			rc = write(sd, buffer, sizeof(buffer)); //End of buffer hopefully won't write garbage
-			if(rc < 0){
-				perror("could not write from file buffer");
-			}
-			printf("sent %d bytes\n", rc);
+		int items = fread(buffer, 1, 1000, file_to_transfer);
+		if(items == 0){
+			printf("Error could not read items in from file to transfer\n");
+		}
+		rc = write(sd, buffer, sizeof(buffer)); //End of buffer hopefully won't write garbage
+		if(rc < 0){
+			perror("Error client could not write from file buffer");
+		}
+		printf("Client sent %d bytes\n", rc);
 
-			pos = ftell(file_to_transfer);
+		pos = ftell(file_to_transfer);
+	}
+
+	rc = read(sd, &bytes_read_ack, sizeof(int));
+	if(rc < 0){
+		perror("Error server file bytes read ack not received");
+	}
+	printf("Server received %d bytes from the file transferred\n", bytes_read_ack); //Should be file_size	
 	//		if(waitForHandshake(connected, start, current_time, received) != 1){
 	//			printf("Error not all bytes were received by the server\n");
 	//			exit(1);
 	//		}
-		}
 	//}else{
 	//	printf("Error not all bytes were received by the server\n");
 	//	exit(1);
