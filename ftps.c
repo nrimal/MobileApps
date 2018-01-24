@@ -54,8 +54,7 @@ int main(int argc, char* argv[]) {
 	printf("Error did not received file size\n");
 	exit(1);
   }
-  //file_size = strtol(buffer, &ptr, 10);
-  //bzero(buffer, 1000);
+
   file_size = *size;
   printf("File size: %d bytes.\n", file_size);
 

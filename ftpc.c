@@ -26,24 +26,6 @@ int findFileSize(FILE* to_transfer){
 	return EndOfFile;
 }
 
-/*int waitForHandshake(int connected, time_t start, time_t current_time, int* received){
-	connected = 0;
-	start = time();
-	while(connected == 0){
-		if(read(sd, received, sizeof(int)) < 0){
-			current_time = time();
-		}else{
-			connected = 1;
-		}
-		if(connected == 0 && current_time - start >= TIMEOUT){
-			perror("Error receiving server handshake client has timed out");
-			exit(1);
-		}
-	}
-
-	return *received;
-}*/
-
 int main(int argc, char* argv[]){
 	int sd;
 	struct sockaddr_in server_address;
@@ -61,9 +43,6 @@ int main(int argc, char* argv[]){
 	char* file_name; //input file name
 	time_t start, current_time; //Used to monitor connection time out
 	int connected = 0; 
-	//int handshake = 0;
-	//int timed_out = 0;
-
 
 	if(argc < 4){
 		printf("Usage is ./ftpc <remote-IP> <remote-port> <local-file-to-transfer>\n");
@@ -119,22 +98,12 @@ int main(int argc, char* argv[]){
 		printf("Error server did not receive correct file size\n");
 		exit(1);
 	}
-	//receive a handshake
-	//handshake = waitForHandshake(connected, start, current_time, received)
 
-	//if(waitForHandshake(connected, start, current_time, received) == 1){
-	//	memset(received, 0, sizeof(int));
 	rc = write(sd, file_name, 20);
 	if(rc < 0){
 		perror("Error file name not sent");
 	}
 	printf("Client sent %d bytes\n", rc);
-	//}else{
-	//	printf("Error not all bytes were received by the server\n");
-	//	exit(1);
-	//}
-
-	//if(waitForHandshake(connected, start, current_time, received) == 1){
 
 	long pos = ftell(file_to_transfer);
 	while((int)pos < file_size){
@@ -158,14 +127,6 @@ int main(int argc, char* argv[]){
 		perror("Error server file bytes read ack not received");
 	}
 	printf("Server received %d bytes from the file transferred\n", bytes_read_ack); //Should be file_size	
-	//		if(waitForHandshake(connected, start, current_time, received) != 1){
-	//			printf("Error not all bytes were received by the server\n");
-	//			exit(1);
-	//		}
-	//}else{
-	//	printf("Error not all bytes were received by the server\n");
-	//	exit(1);
-	//}
-
+	
 return 0;
 }
