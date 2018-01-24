@@ -102,7 +102,7 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-	rc = write(sd, file_size, sizeof(int));
+	rc = write(sd, &file_size, sizeof(int));
 	if(rc < 0){
 		perror("Error file size not sent");
 	}

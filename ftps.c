@@ -95,10 +95,11 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	  }
     fileBytesReceived = fileBytesReceived + rc;
-    if(fwrite(buffer, 1, 1000, file) == 0){
-	printf("Error could not write to ouput file\n");
-	exit(1);
-	}
+    if(fwrite(buffer, 1, rc, file) == 0){
+	  printf("Error could not write to ouput file\n");
+	  exit(1);
+	  }
+    bzero(buffer,1000);
   }
 
   rc = write(connected_sd, &fileBytesReceived, sizeof(int));
