@@ -3,6 +3,7 @@ package edu.osu.myapplication;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -186,7 +187,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
-            mAuthTask.execute((Void) null);
+            //Intent menuIntent = new Intent(this, Closet.class);
+            //setContentView(R.layout.activity_closet);
+           // startActivity(menuIntent);
+            //mAuthTask.execute(startActivity(menuIntent));
         }
     }
 
