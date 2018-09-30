@@ -13,4 +13,12 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!-- Closet-->
+    <string name="title_activity_closet">Closet</string>
+    <string name="closet_add">Add clothing item</string>
+    <string name="closet_shoes">Shoes</string>
+    <string name="closet_pants">Pants</string>
+    <string name="closet_tshirt">T-Shirt</string>
+    <string name="closet_jacket">Jacket</string>
+    <string name="closet_shirt">Shirt</string>
 </resources>
