@@ -13,4 +13,17 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <string name="prefs">Preferences</string>
+    <string name="design_prefs">Design Preferences:</string>
+    <string name="store_prefs">Store Preferences:</string>
+    <string name="pw">Password:</string>
+    <string name="show_items_in_closet_only">Only show items in my closet</string>
+    <string name="temp_pref">Set Temp Preference:</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="cancel">Cancel</string>
+    <string name="username">User Name:</string>
+    <string name="email">Email:</string>
+    <string name="action_settings">Action Settings</string>
+    <string name="title_activity_preferences">Account Page</string>
 </resources>
