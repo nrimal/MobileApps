@@ -185,6 +185,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
+
             Intent menuIntent = new Intent(this, PreferencesActivity.class);
             startActivity(menuIntent);
         }
