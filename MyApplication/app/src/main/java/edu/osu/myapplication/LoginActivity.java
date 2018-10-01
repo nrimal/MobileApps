@@ -1,43 +1,44 @@
+package edu.osu.myapplication;
 
-        package edu.osu.myapplication;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.app.LoaderManager.LoaderCallbacks;
 
-        import android.animation.Animator;
-        import android.animation.AnimatorListenerAdapter;
-        import android.annotation.TargetApi;
-        import android.app.FragmentManager;
-        import android.app.FragmentTransaction;
-        import android.content.Intent;
-        import android.content.pm.PackageManager;
-        import android.content.res.Configuration;
-        import android.support.annotation.NonNull;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.app.LoaderManager.LoaderCallbacks;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
 
-        import android.content.CursorLoader;
-        import android.content.Loader;
-        import android.database.Cursor;
-        import android.net.Uri;
-        import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.provider.ContactsContract;
-        import android.text.TextUtils;
-        import android.util.Log;
-        import android.view.KeyEvent;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.view.inputmethod.EditorInfo;
-        import android.widget.ArrayAdapter;
-        import android.widget.AutoCompleteTextView;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
-        import java.util.ArrayList;
-        import java.util.List;
-
+import static android.Manifest.permission.READ_CONTACTS;
+import static edu.osu.myapplication.R.layout.activity_preferences;
         import static android.Manifest.permission.READ_CONTACTS;
 //        import static edu.osu.myapplication.R.layout.activity_preferences;
 
@@ -114,9 +115,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                attemptLogin();
 //            }
 //        });
+        mUsernameView = findViewById(R.id.username);
+        populateAutoComplete();
+
+        mPasswordView = findViewById(R.id.password);
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
+            }
+        });
 
 //        mLoginFormView = findViewById(R.id.login_form);
 //        mProgressView = findViewById(R.id.login_progress);
+        Button mUsernameSignInButton = findViewById(R.id.username_sign_in_button);
+        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin();
+            }
+        });
+        final Intent PreferencesIntent = new Intent(this, PreferencesActivity.class);
+        Button mUsernameRegisterButton = findViewById(R.id.username_register_button);
+        mUsernameRegisterButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                startActivity(PreferencesIntent);
+            }
+        });
+
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void populateAutoComplete() {
@@ -208,6 +243,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
+
+            Intent menuIntent = new Intent(this, Closet.class);
+            startActivity(menuIntent);
 
 //            Intent menuIntent = new Intent(this, PreferencesActivity.class);
 //            startActivity(menuIntent);
@@ -364,3 +402,4 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 }
+
