@@ -90,53 +90,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         fragmentTransaction.commit();
-
-
-        // Set up the login form.
-//        mUsernameView = findViewById(R.id.username);
-//        populateAutoComplete();
-//
-//        mPasswordView = findViewById(R.id.password);
-//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-//                    attemptLogin();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//
-//        Button mUsernameSignInButton = findViewById(R.id.username_sign_in_button);
-//        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptLogin();
-//            }
-//        });
-
-
-//        Button mUsernameSignInButton = findViewById(R.id.username_sign_in_button);
-//        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptLogin();
-//            }
-//        });
-//        final Intent PreferencesIntent = new Intent(this, PreferencesActivity.class);
-//        Button mUsernameRegisterButton = findViewById(R.id.username_register_button);
-//        mUsernameRegisterButton.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//                startActivity(PreferencesIntent);
-//            }
-//        });
-
-//        mLoginFormView = findViewById(R.id.login_form);
-//        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void populateAutoComplete() {
@@ -179,6 +132,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG,"onStart() called");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG,"onResume() called");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG,"onPause() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG,"onStop() called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG,"onDestroy() called");
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
