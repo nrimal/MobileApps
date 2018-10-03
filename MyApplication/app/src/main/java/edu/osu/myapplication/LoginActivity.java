@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
-import static edu.osu.myapplication.R.layout.activity_preferences;
+//import static edu.osu.myapplication.R.layout.activity_preferences;
         import static android.Manifest.permission.READ_CONTACTS;
 //        import static edu.osu.myapplication.R.layout.activity_preferences;
 
@@ -115,43 +115,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                attemptLogin();
 //            }
 //        });
-        mUsernameView = findViewById(R.id.username);
-        populateAutoComplete();
 
-        mPasswordView = findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+
+//        Button mUsernameSignInButton = findViewById(R.id.username_sign_in_button);
+//        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                attemptLogin();
+//            }
+//        });
+//        final Intent PreferencesIntent = new Intent(this, PreferencesActivity.class);
+//        Button mUsernameRegisterButton = findViewById(R.id.username_register_button);
+//        mUsernameRegisterButton.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//
+//                startActivity(PreferencesIntent);
+//            }
+//        });
 
 //        mLoginFormView = findViewById(R.id.login_form);
 //        mProgressView = findViewById(R.id.login_progress);
-        Button mUsernameSignInButton = findViewById(R.id.username_sign_in_button);
-        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-        final Intent PreferencesIntent = new Intent(this, PreferencesActivity.class);
-        Button mUsernameRegisterButton = findViewById(R.id.username_register_button);
-        mUsernameRegisterButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                startActivity(PreferencesIntent);
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void populateAutoComplete() {

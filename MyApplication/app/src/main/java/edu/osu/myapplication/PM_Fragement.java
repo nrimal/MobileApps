@@ -1,6 +1,7 @@
 package edu.osu.myapplication;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -39,6 +40,11 @@ public class PM_Fragement extends Fragment implements View.OnClickListener {
             }
         });
 
+        Button mUsernameRegisterButton = v.findViewById(R.id.username_register_button);
+        mUsernameRegisterButton.setOnClickListener(this);
+
+
+
         Button mUsernameSignInButton = v.findViewById(R.id.username_sign_in_button);
         mUsernameSignInButton.setOnClickListener(this);
 //        mUsernameSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -57,15 +63,12 @@ public class PM_Fragement extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.username_sign_in_button:
-                attemptLogin();
-                /** Do things you need to..
-                 fragmentTwo = new FragmentTwo();
-
-                 fragmentTransaction.replace(R.id.frameLayoutFragmentContainer, fragmentTwo);
-                 fragmentTransaction.addToBackStack(null);
-
-                 fragmentTransaction.commit();
-                 */
+                Intent ClosetIntent = new Intent(getActivity(),Closet.class);
+                startActivity(ClosetIntent);
+                break;
+            case R.id.username_register_button:
+                Intent PreferencesIntent = new Intent(getActivity(), PreferencesActivity.class);
+                startActivity(PreferencesIntent);
                 break;
         }
     }

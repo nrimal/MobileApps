@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +48,11 @@ public class LM_Fragement extends Fragment implements View.OnClickListener {
             }
         });
 
+        Button mUsernameRegisterButton = v.findViewById(R.id.username_register_button);
+        mUsernameRegisterButton.setOnClickListener(this);
+
+
+
         Button mUsernameSignInButton = v.findViewById(R.id.username_sign_in_button);
         mUsernameSignInButton.setOnClickListener(this);
 //        mUsernameSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -65,15 +71,14 @@ public class LM_Fragement extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.username_sign_in_button:
-                attemptLogin();
-                /** Do things you need to..
-                 fragmentTwo = new FragmentTwo();
+//                attemptLogin();
+                Intent ClosetIntent = new Intent(getActivity(),Closet.class);
+                startActivity(ClosetIntent);
 
-                 fragmentTransaction.replace(R.id.frameLayoutFragmentContainer, fragmentTwo);
-                 fragmentTransaction.addToBackStack(null);
-
-                 fragmentTransaction.commit();
-                 */
+                break;
+            case R.id.username_register_button:
+                Intent PreferencesIntent = new Intent(getActivity(), PreferencesActivity.class);
+                startActivity(PreferencesIntent);
                 break;
         }
     }
