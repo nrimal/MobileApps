@@ -3,8 +3,11 @@ package edu.osu.myapplication;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +39,8 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static edu.osu.myapplication.R.layout.activity_preferences;
+        import static android.Manifest.permission.READ_CONTACTS;
+//        import static edu.osu.myapplication.R.layout.activity_preferences;
 
 /**
  * A login screen that offers login via username/password.
@@ -45,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private static final String TAG = "Login_Activity";
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -67,8 +74,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
+        Configuration config = getResources().getConfiguration();
+        Log.d(TAG, "onCreate(Bundle) called");
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(config.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            LM_Fragement ls_fragment = new LM_Fragement();
+            fragmentTransaction.replace(android.R.id.content, ls_fragment);
+        }else{
+        PM_Fragement pm_fragment = new PM_Fragement();
+        fragmentTransaction.replace(android.R.id.content, pm_fragment);
+        }
+
+        fragmentTransaction.commit();
+
+
         // Set up the login form.
+//        mUsernameView = findViewById(R.id.username);
+//        populateAutoComplete();
+//
+//        mPasswordView = findViewById(R.id.password);
+//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+//                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+//                    attemptLogin();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+//
+//        Button mUsernameSignInButton = findViewById(R.id.username_sign_in_button);
+//        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                attemptLogin();
+//            }
+//        });
         mUsernameView = findViewById(R.id.username);
         populateAutoComplete();
 
@@ -84,6 +130,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+//        mLoginFormView = findViewById(R.id.login_form);
+//        mProgressView = findViewById(R.id.login_progress);
         Button mUsernameSignInButton = findViewById(R.id.username_sign_in_button);
         mUsernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -198,6 +246,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             Intent menuIntent = new Intent(this, Closet.class);
             startActivity(menuIntent);
+
+//            Intent menuIntent = new Intent(this, PreferencesActivity.class);
+//            startActivity(menuIntent);
         }
     }
 
