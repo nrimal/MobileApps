@@ -39,7 +39,7 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 //import static edu.osu.myapplication.R.layout.activity_preferences;
-        import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.READ_CONTACTS;
 //        import static edu.osu.myapplication.R.layout.activity_preferences;
 
 /**
@@ -85,8 +85,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             LM_Fragement ls_fragment = new LM_Fragement();
             fragmentTransaction.replace(android.R.id.content, ls_fragment);
         }else{
-        PM_Fragement pm_fragment = new PM_Fragement();
-        fragmentTransaction.replace(android.R.id.content, pm_fragment);
+            PM_Fragement pm_fragment = new PM_Fragement();
+            fragmentTransaction.replace(android.R.id.content, pm_fragment);
         }
 
         fragmentTransaction.commit();
