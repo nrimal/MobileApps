@@ -1,9 +1,10 @@
 package edu.osu.myapplication;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +15,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class PM_Fragement extends Fragment implements View.OnClickListener {
+import static android.support.constraint.Constraints.TAG;
+
+
+public class LM_Fragment extends Fragment implements View.OnClickListener {
 
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private LoginActivity.UserLoginTask mAuthTask = null;
+//    private LoginActivity.UserLoginTask mAuthTask = null;
+
+    private static final String TAG = "LM_Fragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.pm_fragment, container, false);
-        mUsernameView = v.findViewById(R.id.username);
+        // Set up the login form.
+        Log.d(TAG, this + ": onCreateView()");
+        View v =  inflater.inflate(R.layout.lm_fragment, container, false);
 
+        mUsernameView = v.findViewById(R.id.username);
         mPasswordView = v.findViewById(R.id.password);
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -43,16 +51,8 @@ public class PM_Fragement extends Fragment implements View.OnClickListener {
         Button mUsernameRegisterButton = v.findViewById(R.id.username_register_button);
         mUsernameRegisterButton.setOnClickListener(this);
 
-
-
         Button mUsernameSignInButton = v.findViewById(R.id.username_sign_in_button);
         mUsernameSignInButton.setOnClickListener(this);
-//        mUsernameSignInButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptLogin();
-//            }
-//        });
 
         mLoginFormView = v.findViewById(R.id.login_form);
         mProgressView = v.findViewById(R.id.login_progress);
@@ -60,11 +60,20 @@ public class PM_Fragement extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, this + ": onCreate()");
+//        setRetainInstance(true);
+    }
+    @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.username_sign_in_button:
+//                attemptLogin();
                 Intent ClosetIntent = new Intent(getActivity(),Closet.class);
                 startActivity(ClosetIntent);
+
                 break;
             case R.id.username_register_button:
                 Intent PreferencesIntent = new Intent(getActivity(), PreferencesActivity.class);
@@ -79,9 +88,9 @@ public class PM_Fragement extends Fragment implements View.OnClickListener {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+//        if (mAuthTask != null) {
+////            return;
+////        }
 
         // Reset errors.
         mUsernameView.setError(null);
@@ -136,4 +145,6 @@ public class PM_Fragement extends Fragment implements View.OnClickListener {
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
+
+
 }
