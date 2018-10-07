@@ -39,10 +39,13 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Add_Closet_Item_Activity"
+            android:label="@string/title_activity_add__closet__item_"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".new_Users"></activity>
     </application>
 
