@@ -36,4 +36,56 @@
     <string name="closet_tshirt">T-Shirt</string>
     <string name="closet_jacket">Jacket</string>
     <string name="closet_shirt">Shirt</string>
+
+    <!--Add Closet Item-->
+    <string name="title_activity_add__closet__item_">Add Item</string>
+    <string name="closet_item_picture">Select Picture</string>
+    <string name="closet_item_add">Add</string>
+    <string name="closet_item_type_prompt">Type</string>
+    <string name="closet_item_color_prompt">Color</string>
+    <string name="closet_item_store_prompt">Store Bought</string>
+
+    <string-array name="closet_item_type_array">
+        <item>Shoes</item>
+        <item>Pants</item>
+        <item>T-Shirt</item>
+        <item>Jacket</item>
+        <item>Shirt</item>
+    </string-array>
+
+    <string-array name="closet_item_color_array">
+        <item>Red</item>
+        <item>Pink</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Purple</item>
+        <item>White</item>
+        <item>Light Grey</item>
+        <item>Dark Grey</item>
+        <item>Black</item>
+    </string-array>
+
+    <string-array name="closet_item_store_array">
+        <item>Unknown</item>
+        <item>Macys</item>
+        <item>JC Penny</item>
+        <item>Nordstrom</item>
+        <item>Nike</item>
+        <item>Gap</item>
+        <item>Forever 21</item>
+        <item>Old Navy</item>
+        <item>American Eagle</item>
+        <item>Aeropostle</item>
+        <item>Holister</item>
+        <item>Urban Outfitters</item>
+        <item>H&amp;M</item>
+        <item>UNIQLO</item>
+        <item>Abercrombie &amp; Fitch</item>
+        <item>Victorias Secret</item>
+        <item>Dillards</item>
+    </string-array>
+
+
 </resources>
