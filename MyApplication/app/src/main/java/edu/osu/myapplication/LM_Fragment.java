@@ -76,8 +76,10 @@ public class LM_Fragment extends Fragment implements View.OnClickListener {
 
                 break;
             case R.id.username_register_button:
-                Intent PreferencesIntent = new Intent(getActivity(), PreferencesActivity.class);
-                startActivity(PreferencesIntent);
+//                Intent PreferencesIntent = new Intent(getActivity(), PreferencesActivity.class);
+//                startActivity(PreferencesIntent);
+                Intent newUser = new Intent(getActivity(), new_Users.class);
+                startActivity(newUser);
                 break;
         }
     }
