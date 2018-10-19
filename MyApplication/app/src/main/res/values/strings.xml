@@ -1,41 +1,41 @@
 <resources>
-    <string name="app_name">What to Wear</string>
+    <string name="app_name" translatable="false">What to Wear</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_username">Username</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="action_register">Register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_username">This username is too short (must be at least 4 characters)</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    <string name="prompt_username" translatable="false">Username</string>
+    <string name="prompt_password" translatable="false">Password (optional)</string>
+    <string name="action_sign_in" translatable="false">Sign in</string>
+    <string name="action_register" translatable="false">Register</string>
+    <string name="action_sign_in_short" translatable="false">Sign in</string>
+    <string name="error_invalid_username" translatable="false">This username is too short (must be at least 4 characters)</string>
+    <string name="error_invalid_password" translatable="false">This password is too short</string>
+    <string name="error_incorrect_password" translatable="false">This password is incorrect</string>
+    <string name="error_field_required" translatable="false">This field is required</string>
+    <string name="permission_rationale" translatable="false">"Contacts permissions are needed for providing email
         completions."
     </string>
 
-    <string name="prefs">Preferences</string>
-    <string name="design_prefs">Design Preferences:</string>
-    <string name="store_prefs">Store Preferences:</string>
-    <string name="pw">Password:</string>
-    <string name="show_items_in_closet_only">Only show items in my closet</string>
-    <string name="temp_pref">Set Temperature Preference:</string>
-    <string name="save_changes">Save Changes</string>
-    <string name="cancel">Cancel</string>
-    <string name="username">User Name:</string>
-    <string name="email">Email:</string>
-    <string name="action_settings">Action Settings</string>
-    <string name="title_activity_preferences">Account Page</string>
+    <string name="prefs" translatable="false">Preferences</string>
+    <string name="design_prefs" translatable="false">Design Preferences:</string>
+    <string name="store_prefs" translatable="false">Store Preferences:</string>
+    <string name="pw" translatable="false">Password:</string>
+    <string name="show_items_in_closet_only" translatable="false">Only show items in my closet</string>
+    <string name="temp_pref" translatable="false">Set Temperature Preference:</string>
+    <string name="save_changes" translatable="false">Save Changes</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="username" translatable="false">User Name:</string>
+    <string name="email" translatable="false">Email:</string>
+    <string name="action_settings" translatable="false">Action Settings</string>
+    <string name="title_activity_preferences" translatable="false">Account Page</string>
 
     <!-- Closet-->
-    <string name="title_activity_closet">Closet</string>
-    <string name="closet_add">Add clothing item</string>
-    <string name="closet_shoes">Shoes</string>
-    <string name="closet_pants">Pants</string>
-    <string name="closet_tshirt">T-Shirt</string>
-    <string name="closet_jacket">Jacket</string>
-    <string name="closet_shirt">Shirt</string>
+    <string name="title_activity_closet" translatable="false">Closet</string>
+    <string name="closet_add" translatable="false">Add clothing item</string>
+    <string name="closet_shoes" translatable="false">Shoes</string>
+    <string name="closet_pants" translatable="false">Pants</string>
+    <string name="closet_tshirt" translatable="false">T-Shirt</string>
+    <string name="closet_jacket" translatable="false">Jacket</string>
+    <string name="closet_shirt" translatable="false">Shirt</string>
 
     <!--Add Closet Item-->
     <string name="title_activity_add__closet__item_">Add Item</string>
