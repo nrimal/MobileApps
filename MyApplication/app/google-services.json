@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "705263870188",
+    "firebase_url": "https://mobileapps-7f7f1.firebaseio.com",
+    "project_id": "mobileapps-7f7f1",
+    "storage_bucket": "mobileapps-7f7f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705263870188:android:c0e1e76588295e56",
+        "android_client_info": {
+          "package_name": "edu.osu.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705263870188-0lek7i8rpod8644ht8vkf6tra6g72qru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl_eqHrV04OIGpz9UJz0BUdUF04SQryg4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

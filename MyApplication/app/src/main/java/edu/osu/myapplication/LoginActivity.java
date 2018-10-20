@@ -11,9 +11,9 @@ import android.widget.Spinner;
 /**
  * A login screen that offers login via username/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends HomeActivity {
 
-    private static final String TAG = "Login_Activity";
+    private final String TAG = getClass().getSimpleName();
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
