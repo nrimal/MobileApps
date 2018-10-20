@@ -3,37 +3,34 @@ package edu.osu.myapplication;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.LayoutRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 public class PreferencesActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
     protected Fragment createFragment() {
-        return new PreferencesActivityFragment();
+        return new PreferencesFragment();
     }
 
     @Override
     @SuppressLint("LogNotTimber")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fragment);
         Log.d(TAG, "onCreate(Bundle) called");
-        setContentView(R.layout.fragment_preferences);
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.preferences_fragment);
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
             Fragment preferenceFragment = createFragment();
-            fm.beginTransaction().replace(R.id.preferences_fragment, preferenceFragment).commit();
+            fm.beginTransaction().replace(R.id.fragment_container, preferenceFragment).commit();
         }
+
+        PreferenceManager.setDefaultValues(this, R.xml.accountpreferences, false);
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
