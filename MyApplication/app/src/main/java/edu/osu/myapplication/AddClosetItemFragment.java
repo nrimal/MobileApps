@@ -72,8 +72,6 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
         Username = FirebaseInstanceId.getInstance().getId()+"";
         database = FirebaseDatabase.getInstance();
 
-        //getClothes();
-
         return v;
     }
 
@@ -103,7 +101,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
                 //send to Firebase
 
-                DatabaseReference myRef = database.getReference("User_"+Username+"/ClosetActivity");
+                DatabaseReference myRef = database.getReference("User_"+Username+"/Closet");
                 DatabaseReference newItem = myRef.push();
                 newItem.setValue(CI);
                 
@@ -144,31 +142,12 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     }
 
 
-
-    private void getClothes(){
-        DatabaseReference myRef = database.getReference("User_"+Username);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                Log.d(TAG, dataSnapshot.toString());
-                //ClosetActivity = dataSnapshot.getValue(Clothes.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-    }
-
     private static class ClothingInstance {
         public String Type;
         public String Store;
         public String Color;
         public String Image;
+        public ClothingInstance(){}
         public ClothingInstance(String Type, String Store, String Color, String Image) {
             this.Type = Type;
             this.Store = Store;
