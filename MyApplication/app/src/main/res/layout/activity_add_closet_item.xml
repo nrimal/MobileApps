@@ -117,10 +117,16 @@
 
             <ImageView
                 android:id="@+id/closet_item_image"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_margin="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@android:color/darker_gray"
                 android:contentDescription="@string/closet_item_add"
-                />
+                android:padding="1dp"
+                android:scaleType="center" />
 
             <Button
                 style="?android:textAppearanceSmall"
@@ -130,12 +136,13 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_item_picture"
                 android:textStyle="bold" />
+
             <Button
-                style="?android:textAppearanceSmall"
                 android:id="@+id/btnSubmit"
+                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/closet_item_add"
                 android:textStyle="bold" />
         </LinearLayout>
