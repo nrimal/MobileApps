@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,8 +23,17 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 
 public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickListener {
@@ -34,6 +45,8 @@ public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickLi
     private ImageView picture;
     private Uri selectedImage;
     private String[] spinnerValues;
+    String Username;
+    FirebaseDatabase database;
 
     public static final int GET_FROM_GALLERY = 3;
 
@@ -56,6 +69,11 @@ public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickLi
         btnSubmit.setOnClickListener(this);
         addPhoto.setOnClickListener(this);
 
+        Username = FirebaseInstanceId.getInstance().getId()+"";
+        database = FirebaseDatabase.getInstance();
+
+        //getClothes();
+
         return v;
     }
 
@@ -76,7 +94,20 @@ public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickLi
                 Log.d(TAG,"color : "+spinner3.getSelectedItem().toString() );
                 Log.d(TAG,"image : "+selectedImage );
 
-                //send to firebase
+                ClothingInstance CI = new ClothingInstance(
+                        spinner1.getSelectedItem().toString() ,
+                        spinner2.getSelectedItem().toString(),
+                        spinner3.getSelectedItem().toString(),
+                        selectedImage + ""
+                );
+
+                //send to Firebase
+
+                DatabaseReference myRef = database.getReference("User_"+Username+"/Closet");
+                DatabaseReference newItem = myRef.push();
+                newItem.setValue(CI);
+                
+                getActivity().finish();
 
                 break;
             case R.id.btnAddPicture:
@@ -109,6 +140,40 @@ public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickLi
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+    }
+
+
+
+    private void getClothes(){
+        DatabaseReference myRef = database.getReference("User_"+Username);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Log.d(TAG, dataSnapshot.toString());
+                //Closet = dataSnapshot.getValue(Clothes.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private static class ClothingInstance {
+        public String Type;
+        public String Store;
+        public String Color;
+        public String Image;
+        public ClothingInstance(String Type, String Store, String Color, String Image) {
+            this.Type = Type;
+            this.Store = Store;
+            this.Color = Color;
+            this.Image = Image;
         }
     }
 
