@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class Closet_Fragment extends Fragment implements View.OnClickListener {
+public class ClosetFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "Closet_Frag_Activity";
 
@@ -44,7 +41,7 @@ public class Closet_Fragment extends Fragment implements View.OnClickListener {
         switch(v.getId()){
             case R.id.btnAddItem:
 //                attemptLogin();
-                Intent ClosetIntent = new Intent(getActivity(),Add_Closet_Item_Activity.class);
+                Intent ClosetIntent = new Intent(getActivity(),AddClosetItemActivity.class);
                 startActivity(ClosetIntent);
                 break;
         }

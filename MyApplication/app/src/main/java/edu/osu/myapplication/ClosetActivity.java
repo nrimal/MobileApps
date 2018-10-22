@@ -1,21 +1,13 @@
 package edu.osu.myapplication;
 
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 
 
-public class Closet extends AppCompatActivity {
+public class ClosetActivity extends AppCompatActivity {
 
     private static final String TAG = "Closet_Activity";
 
@@ -25,7 +17,7 @@ public class Closet extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.activity_closet_fragment);
         if(fragment==null) {
-            fragment = new Closet_Fragment();
+            fragment = new ClosetFragment();
             manager.beginTransaction()
                     .add(R.id.activity_closet_fragment, fragment)
                     .commit();

@@ -5,19 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import java.util.ArrayList;
-import java.util.List;
 
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-public class Add_Closet_Item_Activity extends AppCompatActivity {
+public class AddClosetItemActivity extends AppCompatActivity {
     private Spinner spinner1, spinner2;
     private Button btnSubmit;
 
@@ -29,7 +21,7 @@ public class Add_Closet_Item_Activity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.activity_closet_fragment);
         if(fragment==null) {
-            fragment = new Add_Closet_Item_Fragment();
+            fragment = new AddClosetItemFragment();
             manager.beginTransaction()
                     .add(R.id.activity_closet_fragment, fragment)
                     .commit();

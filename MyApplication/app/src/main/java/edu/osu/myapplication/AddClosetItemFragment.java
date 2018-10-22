@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickListener {
+public class AddClosetItemFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "Closet_Add_Frag_Activ";
 
@@ -103,7 +103,7 @@ public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickLi
 
                 //send to Firebase
 
-                DatabaseReference myRef = database.getReference("User_"+Username+"/Closet");
+                DatabaseReference myRef = database.getReference("User_"+Username+"/ClosetActivity");
                 DatabaseReference newItem = myRef.push();
                 newItem.setValue(CI);
                 
@@ -153,7 +153,7 @@ public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickLi
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Log.d(TAG, dataSnapshot.toString());
-                //Closet = dataSnapshot.getValue(Clothes.class);
+                //ClosetActivity = dataSnapshot.getValue(Clothes.class);
             }
 
             @Override

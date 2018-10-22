@@ -15,10 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import static android.support.constraint.Constraints.TAG;
 
-
-public class LM_Fragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
@@ -26,7 +24,7 @@ public class LM_Fragment extends Fragment implements View.OnClickListener {
     private View mLoginFormView;
 //    private LoginActivity.UserLoginTask mAuthTask = null;
 
-    private static final String TAG = "LM_Fragment";
+    private static final String TAG = "LoginFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,14 +69,14 @@ public class LM_Fragment extends Fragment implements View.OnClickListener {
         switch(v.getId()){
             case R.id.username_sign_in_button:
 //                attemptLogin();
-                Intent ClosetIntent = new Intent(getActivity(),Closet.class);
+                Intent ClosetIntent = new Intent(getActivity(),ClosetActivity.class);
                 startActivity(ClosetIntent);
 
                 break;
             case R.id.username_register_button:
 //                Intent PreferencesIntent = new Intent(getActivity(), PreferencesActivity.class);
 //                startActivity(PreferencesIntent);
-                Intent newUser = new Intent(getActivity(), new_Users.class);
+                Intent newUser = new Intent(getActivity(), NewUsersActivity.class);
                 startActivity(newUser);
                 break;
         }

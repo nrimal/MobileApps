@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Closet"
+            android:name=".ClosetActivity"
             android:label="@string/title_activity_closet"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -31,10 +31,10 @@
             android:label="@string/title_activity_preferences"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Add_Closet_Item_Activity"
+            android:name=".AddClosetItemActivity"
             android:label="@string/title_activity_add__closet__item_"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".new_Users" />
+        <activity android:name=".NewUsersActivity" />
     </application>
 
 </manifest>

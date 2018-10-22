@@ -28,7 +28,7 @@
     <string name="action_settings" translatable="false">Action Settings</string>
     <string name="title_activity_preferences" translatable="false">Account Page</string>
 
-    <!-- Closet-->
+    <!-- ClosetActivity-->
     <string name="title_activity_closet" translatable="false">Closet</string>
     <string name="closet_add" translatable="false">Add clothing item</string>
     <string name="closet_shoes" translatable="false">Shoes</string>
@@ -37,7 +37,7 @@
     <string name="closet_jacket" translatable="false">Jacket</string>
     <string name="closet_shirt" translatable="false">Shirt</string>
 
-    <!--Add Closet Item-->
+    <!--Add ClosetActivity Item-->
     <string name="title_activity_add__closet__item_">Add Item</string>
     <string name="closet_item_picture">Select Picture</string>
     <string name="closet_item_add">Add</string>
