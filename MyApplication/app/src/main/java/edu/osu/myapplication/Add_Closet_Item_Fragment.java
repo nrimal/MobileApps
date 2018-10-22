@@ -64,7 +64,6 @@ public class Add_Closet_Item_Fragment extends Fragment implements View.OnClickLi
     {
         super.onCreate(savedInstanceState);
         Log.d(TAG, this + ": onCreate()");
-//        setRetainInstance(true);
     }
 
     @Override
