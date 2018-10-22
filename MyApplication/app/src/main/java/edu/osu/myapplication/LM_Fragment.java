@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import static android.support.constraint.Constraints.TAG;
 
 
 public class LM_Fragment extends Fragment implements View.OnClickListener {
