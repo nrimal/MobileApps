@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "705263870188-ituf5gng20kmgo88klg1krfaq979tjth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.osu.myapplication",
+            "certificate_hash": "2cd33adb8c21d7592082f01ce8b512424f168b08"
+          }
+        },
+        {
           "client_id": "705263870188-0lek7i8rpod8644ht8vkf6tra6g72qru.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705263870188-0lek7i8rpod8644ht8vkf6tra6g72qru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
