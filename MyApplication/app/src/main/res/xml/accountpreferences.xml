@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:asp="http://schemas.android.com/apk/res-auto"
+    android:title="Account Preferences">
+
+    <EditTextPreference
+        android:key="username"
+        android:title="User Name"
+        android:summary="Change your username"
+        />
+    <EditTextPreference
+        android:key="email"
+        android:title="Email"
+        android:summary="Change your email"
+        />
+    <EditTextPreference
+        android:key="password"
+        android:title="Password"
+        android:summary="Change your password"
+        />
+    <ListPreference
+        android:key="designPrefs"
+        android:summary="Change your design preference"
+        android:title="Design Preference"
+        android:entries="@array/design_array"
+        android:entryValues="@array/design_array" />
+    <MultiSelectListPreference
+        android:key="storePrefs"
+        android:summary="Change your store preferences"
+        android:title="Store Preferences"
+        android:entries="@array/store_array"
+        android:entryValues="@array/store_array" />
+    <SeekBarPreference
+        android:key="tempPref"
+        android:title="Temperature Preference"
+        android:summary="If current suggestions make you cold, slide the bar left"
+        android:defaultValue="@integer/tempPref_default"
+        android:max="@integer/tempPref_max"
+        asp:min="@integer/tempPref_min" />
+
+</PreferenceScreen>
