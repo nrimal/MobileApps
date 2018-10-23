@@ -1,2 +1,11 @@
-Tue Jun 13 23:24:56 CDT 2017 new release available
-Tue Jul 11 15:10:08 CDT 2017 new release available
+Inhibiting until Ctrl+C is pressed...
+Inhibiting until Ctrl+C is pressed...
+  MarkInstall libc6 [ amd64 ] < 2.23-0ubuntu10 -> 2.27-3ubuntu1 > ( libs ) FU=1
+    MarkInstall locales [ amd64 ] < 2.23-0ubuntu10 -> 2.27-3ubuntu1 > ( libs ) FU=0
+    Installing libc-bin as Depends of locales
+      MarkInstall libc-bin [ amd64 ] < 2.23-0ubuntu10 -> 2.27-3ubuntu1 > ( libs ) FU=0
+Starting pkgProblemResolver with broken count: 0
+Starting 2 pkgProblemResolver with broken count: 0
+Done
+Inhibiting until Ctrl+C is pressed...
+Inhibiting until Ctrl+C is pressed...

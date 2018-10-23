@@ -1,4 +1,0 @@
-
-** (process:12406): WARNING **: Failed to register client: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.gnome.SessionManager was not provided by any .service files
-Activating service name='org.a11y.atspi.Registry'
-Successfully activated service 'org.a11y.atspi.Registry'

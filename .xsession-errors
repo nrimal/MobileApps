@@ -1,2 +1,21 @@
 openConnection: connect: No such file or directory
 cannot connect to brltty at :0
+upstart: update-notifier-release main process (1749) killed by TERM signal
+upstart: Failed to spawn indicator-application pre-stop process: unable to execute: No such file or directory
+upstart: bamfdaemon main process (1762) killed by TERM signal
+upstart: hud main process (1843) killed by TERM signal
+upstart: unity-settings-daemon main process (1845) killed by HUP signal
+upstart: gnome-session (Unity) main process (1853) killed by HUP signal
+upstart: unity-panel-service main process (1867) killed by TERM signal
+upstart: indicator-bluetooth main process (1908) killed by TERM signal
+upstart: indicator-power main process (1911) killed by TERM signal
+upstart: indicator-datetime main process (1914) killed by TERM signal
+upstart: indicator-keyboard main process (1927) killed by HUP signal
+upstart: indicator-sound main process (1936) killed by TERM signal
+upstart: indicator-printers main process (1937) killed by TERM signal
+upstart: indicator-session main process (1939) killed by TERM signal
+upstart: indicator-application main process (1954) killed by TERM signal
+upstart: gnome-session (Unity) pre-stop process (4515) terminated with status 127
+upstart: gpg-agent post-stop process (4518) killed by TERM signal
+upstart: Disconnected from notified D-Bus bus
+upstart: unity7 main process (2045) terminated with status 1

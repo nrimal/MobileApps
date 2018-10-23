@@ -3,62 +3,114 @@
       xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
       xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
 >
-  <bookmark href="file:///home/scott/Downloads/playing_card_suits.png" added="2017-07-12T01:20:06Z" modified="2017-07-12T01:20:53Z" visited="2017-07-12T01:20:07Z">
+  <bookmark href="file:///tmp/mozilla_scott0/Hicks_Scott_Resume.pdf" added="2018-10-22T03:56:08Z" modified="2018-10-22T03:59:07Z" visited="2018-10-22T03:56:09Z">
     <info>
       <metadata owner="http://freedesktop.org">
-        <mime:mime-type type="image/png"/>
+        <mime:mime-type type="application/pdf"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-07-12T01:20:53Z" count="3"/>
+          <bookmark:application name="Document Viewer" exec="&apos;evince %u&apos;" modified="2018-10-22T03:59:07Z" count="2"/>
         </bookmark:applications>
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///tmp/mozilla_scott0/oie_d6A5330a2654.png" added="2017-07-12T01:22:50Z" modified="2017-07-12T01:22:50Z" visited="2017-07-12T01:22:50Z">
+  <bookmark href="file:///home/scott/Desktop/Hicks_Scott_Resume.pdf" added="2018-10-22T03:59:17Z" modified="2018-10-22T04:04:35Z" visited="2018-10-22T03:59:18Z">
     <info>
       <metadata owner="http://freedesktop.org">
-        <mime:mime-type type="image/png"/>
+        <mime:mime-type type="application/pdf"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-07-12T01:22:50Z" count="1"/>
+          <bookmark:application name="Document Viewer" exec="&apos;evince %u&apos;" modified="2018-10-22T03:59:18Z" count="2"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-10-22T04:04:35Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///tmp/mozilla_scott0/oie_OqmVCLiKRxSV.png" added="2017-07-12T01:24:54Z" modified="2017-07-12T01:24:54Z" visited="2017-07-12T01:24:55Z">
+  <bookmark href="file:///home/scott/cse5462" added="2018-10-22T04:10:55Z" modified="2018-10-22T04:10:55Z" visited="2018-10-22T04:10:56Z">
     <info>
       <metadata owner="http://freedesktop.org">
-        <mime:mime-type type="image/png"/>
+        <mime:mime-type type="inode/directory"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-07-12T01:24:54Z" count="1"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-10-22T04:10:55Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///tmp/mozilla_scott0/oie_PmAKnljppGmZ.png" added="2017-07-12T01:25:31Z" modified="2017-07-12T01:25:31Z" visited="2017-07-12T01:25:31Z">
+  <bookmark href="file:///home/scott/Downloads/Win10_1803_English_x64.iso" added="2018-10-22T22:28:47Z" modified="2018-10-22T22:29:05Z" visited="2018-10-22T22:28:48Z">
     <info>
       <metadata owner="http://freedesktop.org">
-        <mime:mime-type type="image/png"/>
+        <mime:mime-type type="application/x-cd-image"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-07-12T01:25:31Z" count="1"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-10-22T22:28:47Z" count="1"/>
+          <bookmark:application name="woeusbgui" exec="&apos;woeusbgui %u&apos;" modified="2018-10-22T22:29:05Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///tmp/mozilla_scott0/oie_xEn3d4bNXAKb.png" added="2017-07-12T01:26:07Z" modified="2017-07-12T01:26:07Z" visited="2017-07-12T01:26:07Z">
+  <bookmark href="file:///media/scott/B842D8F342D8B6FA/Users/Scott/Documents/OSU/CSE/Codes%20and%20Code%20Breaking/Cryptocup%202.docx" added="2018-10-23T17:05:58Z" modified="2018-10-23T17:05:59Z" visited="2018-10-23T17:05:59Z">
     <info>
       <metadata owner="http://freedesktop.org">
-        <mime:mime-type type="image/png"/>
+        <mime:mime-type type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-07-12T01:26:07Z" count="1"/>
+          <bookmark:application name="LibreOffice 6.0" exec="&apos;soffice %u&apos;" modified="2018-10-23T17:05:59Z" count="2"/>
         </bookmark:applications>
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/scott/Desktop/clubs.png" added="2017-07-12T01:27:15Z" modified="2017-07-12T01:27:15Z" visited="2017-07-12T01:27:15.262067Z">
+  <bookmark href="file:///home/scott/Downloads/android-studio-ide-181.5056338-linux.zip" added="2018-10-23T17:21:44Z" modified="2018-10-23T17:21:44Z" visited="2018-10-23T17:21:44Z">
     <info>
       <metadata owner="http://freedesktop.org">
-        <mime:mime-type type="image/png"/>
+        <mime:mime-type type="application/zip"/>
         <bookmark:applications>
-          <bookmark:application name="nautilus" exec="&apos;eog %U&apos;" modified="2017-07-12T01:27:15Z" count="1"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-10-23T17:21:44Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/scott" added="2018-10-23T17:24:20Z" modified="2018-10-23T17:24:20Z" visited="2018-10-23T17:24:20Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="inode/directory"/>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;nautilus %u&apos;" modified="2018-10-23T17:24:20Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///tmp/mozilla_scott0/AndroidStudio.pdf" added="2018-10-23T17:27:25Z" modified="2018-10-23T17:27:25Z" visited="2018-10-23T17:27:25Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/pdf"/>
+        <bookmark:applications>
+          <bookmark:application name="Document Viewer" exec="&apos;evince %u&apos;" modified="2018-10-23T17:27:25Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/scott/mobileApps-master" added="2018-10-23T17:29:20Z" modified="2018-10-23T17:30:07Z" visited="2018-10-23T17:29:20Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-10-23T17:29:20Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/scott/Downloads" added="2018-10-23T17:29:43Z" modified="2018-10-23T17:29:43Z" visited="2018-10-23T17:29:43Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="inode/directory"/>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;nautilus %u&apos;" modified="2018-10-23T17:29:43Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///tmp/mozilla_scott0/AndroidStudioTips.pdf" added="2018-10-23T17:34:46Z" modified="2018-10-23T17:34:46Z" visited="2018-10-23T17:34:46Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/pdf"/>
+        <bookmark:applications>
+          <bookmark:application name="Document Viewer" exec="&apos;evince %u&apos;" modified="2018-10-23T17:34:46Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>

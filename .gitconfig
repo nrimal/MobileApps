@@ -1,3 +1,5 @@
 [user]
-	name = Scott
+	name = hicks.576
 	email = hicks.576@buckeyemail.osu.edu
+[core]
+	autocrlf = input

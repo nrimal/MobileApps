@@ -1,6 +1,0 @@
-
-(unity-control-center:3267): unity-control-center-WARNING **: Could not load /usr/share/themes/Adwaita/index.theme: No such file or directory
-
-(unity-control-center:3267): Gtk-CRITICAL **: gtk_builder_get_object: assertion 'GTK_IS_BUILDER (builder)' failed
-
-(unity-control-center:3267): Gtk-CRITICAL **: gtk_icon_view_get_selected_items: assertion 'GTK_IS_ICON_VIEW (icon_view)' failed

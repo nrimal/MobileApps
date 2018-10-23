@@ -1,3 +1,14 @@
 [directory]
 nautilus-icon-view-keep-aligned=true
-nautilus-icon-view-layout-timestamp=1499803811
+nautilus-icon-view-layout-timestamp=1540319375
+nautilus-desktop-icon-size=48
+
+[trash]
+nautilus-icon-position-timestamp=1540319375
+nautilus-icon-position=56,26
+icon-scale=1
+
+[447 GB Volume.volume]
+nautilus-icon-position=56,146
+icon-scale=1
+nautilus-icon-position-timestamp=1540314318
