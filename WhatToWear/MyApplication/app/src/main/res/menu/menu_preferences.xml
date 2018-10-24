@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+    <item
+    android:id="@+id/home_activity"
+    android:title="@string/home"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/calender"
+        android:title="@string/calender"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/closet"
+        android:title="@string/closet"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/account"
+        android:title="@string/account"
+        app:showAsAction="always"/>
+    </group>
+</menu>
