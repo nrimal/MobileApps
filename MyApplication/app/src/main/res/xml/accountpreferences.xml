@@ -16,7 +16,7 @@
     <EditTextPreference
         android:key="password"
         android:title="Password"
-        android:summary="Change your email"
+        android:summary="Change your password"
         />
     <ListPreference
         android:key="designPrefs"

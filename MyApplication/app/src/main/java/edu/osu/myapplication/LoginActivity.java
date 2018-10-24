@@ -4,9 +4,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 /**
  * A login screen that offers login via username/password.
@@ -28,7 +25,7 @@ public class LoginActivity extends HomeActivity {
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.lm_fragment);
         if(fragment==null) {
-            fragment = new LM_Fragment();
+            fragment = new LoginFragment();
             manager.beginTransaction()
                     .add(R.id.lm_fragment, fragment)
                     .commit();

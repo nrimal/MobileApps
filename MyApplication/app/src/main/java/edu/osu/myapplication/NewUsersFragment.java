@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 
-public class new_users_Fragment extends Fragment implements View.OnClickListener {
+public class NewUsersFragment extends Fragment implements View.OnClickListener {
 
     private Button mRegisterBtn;
     private Spinner mStorePref, mDesignPref;

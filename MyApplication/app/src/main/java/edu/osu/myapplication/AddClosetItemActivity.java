@@ -1,23 +1,19 @@
 package edu.osu.myapplication;
 
-import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 
+import android.widget.Button;
+import android.widget.Spinner;
 
-public class Closet extends AppCompatActivity {
+public class AddClosetItemActivity extends AppCompatActivity {
+    private Spinner spinner1, spinner2;
+    private Button btnSubmit;
 
-    private static final String TAG = "Closet_Activity";
+    private static final String TAG = "Add_Closet_Item_Act";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +21,15 @@ public class Closet extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.activity_closet_fragment);
         if(fragment==null) {
-            fragment = new Closet_Fragment();
+            fragment = new AddClosetItemFragment();
             manager.beginTransaction()
                     .add(R.id.activity_closet_fragment, fragment)
                     .commit();
         }
         Log.d(TAG, "onCreate(Bundle) called");
     }
+
+
 
     @Override
     public void onStart(){
@@ -62,5 +60,7 @@ public class Closet extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG,"onDestroy() called");
     }
+
+
 
 }

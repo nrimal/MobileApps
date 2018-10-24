@@ -37,6 +37,7 @@
                 android:layout_height="3dp"
                 android:background="@android:color/darker_gray"/>
 
+
             <Button
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
@@ -44,6 +45,14 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_shoes"
                 android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/showShoes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
             <Button
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
