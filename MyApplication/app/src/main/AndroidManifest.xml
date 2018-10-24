@@ -24,12 +24,10 @@
         </activity>
         <activity
             android:name=".ClosetActivity"
-            android:label="@string/title_activity_closet"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".PreferencesActivity"
-            android:label="@string/title_activity_preferences"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".AddClosetItemActivity"
             android:label="@string/title_activity_add__closet__item_"
