@@ -88,7 +88,6 @@
     </string-array>
 
 
-
     <!-- New Users Page-->
     <string name="new_users">New Users</string>
     <string name="user_name">User Name:</string>
@@ -116,6 +115,12 @@
     </string-array>
 
     <string name="register">Register</string>
+
+    <!--Menu-Page-->
+    <string name="home">Home</string>
+    <string name="calender">Calender</string>
+    <string name="closet">Closet</string>
+    <string name="account">Account</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

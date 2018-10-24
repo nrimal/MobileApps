@@ -69,6 +69,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         switch(v.getId()){
             case R.id.username_sign_in_button:
 //                attemptLogin();
+//                Intent ClosetIntent = new Intent(getActivity(),Closet.class);
+//                startActivity(ClosetIntent);
+                Intent homeActivity = new Intent(getActivity(), HomeActivity.class);
+                startActivity(homeActivity);
                 Intent ClosetIntent = new Intent(getActivity(),ClosetActivity.class);
                 startActivity(ClosetIntent);
 
