@@ -115,4 +115,14 @@
       </metadata>
     </info>
   </bookmark>
+  <bookmark href="file:///home/scott/Downloads/mobileApps-master%20(1).zip" added="2018-10-24T15:50:35Z" modified="2018-10-24T15:50:35Z" visited="2018-10-24T15:50:35Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="google-chrome-stable" exec="&apos;google-chrome-stable %u&apos;" modified="2018-10-24T15:50:35Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
 </xbel>

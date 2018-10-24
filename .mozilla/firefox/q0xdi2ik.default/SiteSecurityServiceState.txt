@@ -40,7 +40,8 @@ books-google-com.proxy.lib.ohio-state.edu:HSTS	0	17573	1518992622212,1,0,2
 api.stacksocial.com:HSTS	0	17826	1555798301241,1,1,2
 by2.uservoice.com:HSTS	0	17616	1537823667860,1,1,2
 geeksforgeeks.disqus.com:HSTS	0	17616	1522088663223,1,1,2
-graph.facebook.com:HSTS	20	17827	1555873357279,1,0,2
+graph.facebook.com:HSTS	20	17827	1555875325508,1,0,2
+www.jetbrains.com:HSTS	0	17359	1531361989709,1,0
 mirror.cedia.org.ec:HSTS	3	17638	1524180858913,1,0,2
 osu.app.box.com:HSTS	12	17826	1571717872198,1,0,2
 www.wikihow.com:HSTS	0	17826	1571783042309,1,1,2
@@ -49,7 +50,6 @@ mc.yandex.ru:HSTS	0	17597	1551996479476,1,0,2
 cdn.mailerlite.com:HSTS	0	17543	1578872018006,1,1,2
 docs.python.org:HSTS	3	17619	1837725675175,1,1,2
 support.joinhandshake.com:HSTS	0	17826	1540439703739,1,0,2
-attachment.outlook.office.net:HSTS	0	17620	1553904789994,1,1,2
 estream.to:HSTS	0	17422	1521091583493,1,0
 cse.osu.edu:HSTS	8	17741	1548645220793,1,0,2
 www.ibm.com:HSTS	2	17617	1553715010680,1,0,2
@@ -73,7 +73,7 @@ app-ab03.marketo.com:HSTS	1	17546	1579116098647,1,0,2
 social.msdn.microsoft.com:HSTS	26	17826	1547535429732,1,0,2
 planyourperfectwedding.disqus.com:HSTS	0	17616	1522099599939,1,1,2
 blog.phusion.nl:HSTS	3	17547	1831491370721,1,0,2
-askubuntu.com:HSTS	17	17827	1555873972738,1,0,2
+askubuntu.com:HSTS	17	17827	1555875680610,1,0,2
 api.trello.com:HSTS	0	17627	1538527785198,1,0,2
 word-view.officeapps.live.com:HSTS	1	17780	1567803443741,1,0,2
 track.mailerlite.com:HSTS	0	17543	1578873254966,1,1,2
@@ -96,7 +96,7 @@ onclkds.com:HSTS	0	17422	1505323627305,1,0
 thesecretyumiverse.wonderhowto.com:HSTS	0	17584	1582330978448,1,1,2
 api.travis-ci.org:HSTS	2	17569	1549579232967,1,0,2
 widget.uservoice.com:HSTS	0	17616	1537823607014,1,1,2
-www.google.com:HSTS	1	17827	1540926772189,1,0,2
+www.google.com:HSTS	1	17827	1540928480071,1,0,2
 developers.google.com:HSTS	0	17554	1548273110062,1,1,2
 howtogeek.disqus.com:HSTS	0	17826	1540182202621,1,1,2
 versioncheck-bg.addons.mozilla.org:HSTS	62	17827	1540315113559,1,0,2
@@ -107,7 +107,7 @@ dmx.districtm.io:HSTS	3	17618	1553810355108,1,1,2
 data.services.jetbrains.com:HSTS	0	17359	1531361939246,1,0
 handshake.osu.edu:HSTS	0	17826	1540180642481,1,0,2
 normandy.services.mozilla.com:HSTS	3	17826	1571781211017,1,1,2
-live.github.com:HSTS	48	17827	1571858598075,1,0,2
+live.github.com:HSTS	48	17827	1571859214930,1,0,2
 middlemanapp.com:HSTS	0	17359	1531362089404,1,0
 clickserve.dartsearch.net:HSTS	0	17556	1548433227972,1,1,2
 stackoverflow.com:HSTS	37	17827	1555873357253,1,0,2
@@ -122,7 +122,7 @@ www.gnu.org:HSTS	0	17632	1586542463110,1,0,2
 player.vimeo.com:HSTS	0	17669	1542162569561,1,1,2
 siteintercept.qualtrics.com:HSTS	1	17429	1506533290026,1,1
 api.github.com:HSTS	36	17619	1553901952449,1,1,2
-github.com:HSTS	56	17827	1571858610050,1,1,2
+github.com:HSTS	56	17827	1571859230123,1,1,2
 api.facebook.com:HSTS	1	17597	1536012459725,1,0,2
 login.microsoftonline.com:HSTS	11	17826	1571781096766,1,1,2
 git-scm.com:HSTS	1	17556	1548437909185,1,0,2
@@ -200,11 +200,11 @@ www.amazon.com:HSTS	1	17616	1569575342169,1,1,2
 i-msdn.sec.s-msft.com:HSTS	2	17546	1547535428391,1,0,2
 wac-cdn-a.atlassian.com:HSTS	0	17359	1531360226146,1,0
 s3-media4.fl.yelpcdn.com:HSTS	0	17616	1553634755333,1,1,2
-avatars0.githubusercontent.com:HSTS	46	17827	1571877412786,1,0,2
+avatars0.githubusercontent.com:HSTS	46	17827	1571880683956,1,0,2
 cdn-static-1.medium.com:HSTS	3	17827	1555866831490,1,1,2
 gist.github.com:HPKP	4	17626	1510510896972,1,1,WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=RRM1dGqnDFsCJXBTHky16vi1obOlCgFFn/yOhI/y+ho=k2v657xBsOVe1PQRwOsHsw3bsGT2VzIqz5K+59sNQws=K87oWBWM9UZfyddvDfoxL+8lpNyoUB2ptGtn0fv6G2Q=IQBnNBEiFuhj+8x6X8XLgh01V9Ic5/V3IRQLNFFc7v4=iie1VXtL7HzAMF+/PVPR9xzT80kQxdZeJ+zduCB3uj0=LvRiGEjRqfzurezaWuj8Wie2gyHMrW5Q06LspMnox7A=
 sourceware.org:HSTS	0	17542	1531772605140,1,0,2
-shavar.services.mozilla.com^firstPartyDomain=safebrowsing.86868755-6b82-4842-b301-72671a0db32e.mozilla:HSTS	80	17827	1571855601794,1,1,2
+shavar.services.mozilla.com^firstPartyDomain=safebrowsing.86868755-6b82-4842-b301-72671a0db32e.mozilla:HSTS	80	17827	1571859202054,1,1,2
 canvadocs.instructure.com:HSTS	42	17779	1567641768155,1,0,2
 puzzling.stackexchange.com:HSTS	0	17616	1537640155575,1,0,2
 a0.muscache.com:HSTS	1	17568	1528831507082,1,1,2
@@ -213,7 +213,7 @@ c5.patreon.com:HSTS	0	17826	1542837051574,1,0,2
 notifications.google.com:HSTS	2	17780	1567803764651,1,0,2
 cdn.rawgit.com:HSTS	1	17826	1571717506220,1,0,2
 auth.geeksforgeeks.org:HSTS	6	17639	1524032541930,1,1,2
-www.jetbrains.com:HSTS	0	17359	1531361989709,1,0
+versioncheck-bg.addons.mozilla.org:HPKP	62	17827	1545498813560,1,1,WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E=
 piazza.com:HSTS	0	17780	1536353598340,1,0,2
 www.patreon.com:HSTS	0	17826	1542837054528,1,0,2
 m.stripe.network:HSTS	0	17543	1547354832469,1,1,2
@@ -227,7 +227,7 @@ www.codecademy.com:HSTS	0	17618	1553809857435,1,0,2
 normandy-cloudfront.cdn.mozilla.net:HSTS	7	17779	1567641936643,1,1,2
 cdn.vox-cdn.com:HSTS	1	17597	1551996488283,1,0,2
 embed.spotify.com:HSTS	0	17616	1553635256597,1,0,2
-avatars3.githubusercontent.com:HSTS	31	17827	1571877412786,1,0,2
+avatars3.githubusercontent.com:HSTS	31	17827	1571880725176,1,0,2
 gawron.sdsu.edu:HSTS	0	17618	1553810134459,1,1,2
 eddmann.disqus.com:HSTS	0	17620	1522368382455,1,1,2
 www-google-analytics-com.proxy.lib.ohio-state.edu:HSTS	0	17573	1529274221985,1,1,2
@@ -237,7 +237,7 @@ login.wikimedia.org:HSTS	3	17639	1630418053548,1,1,2
 ogs.google.com:HSTS	4	17780	1567803777243,1,0,2
 um.simpli.fi:HSTS	11	17620	1585440085327,1,1,2
 ubuntu.stackexchange.com:HSTS	0	17550	1531957820570,1,0,2
-versioncheck-bg.addons.mozilla.org:HPKP	62	17827	1545498813560,1,1,WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E=
+attachment.outlook.office.net:HSTS	0	17620	1553904789994,1,1,2
 ad.yieldmanager.com:HSTS	0	17582	1550690765978,1,0,2
 6372968.fls.doubleclick.net:HSTS	0	17616	1522120311856,1,0,2
 www.tecmint.com:HSTS	0	17633	1534443943920,1,1,2
@@ -245,7 +245,7 @@ vimeo.com:HSTS	0	17669	1542162553140,1,1,2
 use.typekit.com:HSTS	0	17359	1531359540734,1,1
 use.typekit.net:HSTS	1	17616	1553634628061,1,1,2
 fupload-iad.app.box.com:HSTS	0	17826	1571717869609,1,0,2
-avatars2.githubusercontent.com:HSTS	36	17639	1555598278009,1,0,2
+avatars2.githubusercontent.com:HSTS	37	17827	1571880733945,1,0,2
 developer.android.com:HSTS	0	17827	1571851160716,1,1,2
 www.youtube.com:HSTS	30	17826	1571782922038,1,0,2
 cluster68-files.instructure.com:HSTS	32	17639	1555566534006,1,0,2

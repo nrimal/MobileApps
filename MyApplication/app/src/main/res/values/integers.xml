@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="tempPref_default">3</integer>
-    <integer name="tempPref_max">5</integer>
-    <integer name="tempPref_min">1</integer>
-</resources>
