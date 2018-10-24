@@ -35,6 +35,7 @@
             android:label="@string/title_activity_add__closet__item_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NewUsersActivity" />
+        <activity android:name=".HomeActivity" />
     </application>
 
 </manifest>

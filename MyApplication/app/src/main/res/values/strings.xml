@@ -8,6 +8,7 @@
     <string name="action_register" translatable="false">Register</string>
     <string name="action_sign_in_short" translatable="false">Sign in</string>
     <string name="error_invalid_username" translatable="false">This username is too short (must be at least 4 characters)</string>
+    <string name="invalid_email" translatable="false">Email is not in right format</string>
     <string name="error_invalid_password" translatable="false">This password is too short</string>
     <string name="error_incorrect_password" translatable="false">This password is incorrect</string>
     <string name="error_field_required" translatable="false">This field is required</string>
