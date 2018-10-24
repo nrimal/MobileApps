@@ -1,5 +1,6 @@
 package edu.osu.myapplication;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +15,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
-//    private LoginActivity.UserLoginTask mAuthTask = null;
+    private FirebaseAuth mAuth;
 
     private static final String TAG = "LoginFragment";
 
@@ -39,7 +45,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
                     return true;
                 }
                 return false;
@@ -52,8 +57,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         Button mUsernameSignInButton = v.findViewById(R.id.username_sign_in_button);
         mUsernameSignInButton.setOnClickListener(this);
 
-        mLoginFormView = v.findViewById(R.id.login_form);
-        mProgressView = v.findViewById(R.id.login_progress);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){ //if user is already signed in go to homepage
+            Intent homePage = new Intent(getActivity(), HomeActivity.class);
+            startActivity(homePage);
+        }
         return v;
     }
 
@@ -62,19 +70,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     {
         super.onCreate(savedInstanceState);
         Log.d(TAG, this + ": onCreate()");
+        mAuth = FirebaseAuth.getInstance();
 //        setRetainInstance(true);
     }
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.username_sign_in_button:
-//                attemptLogin();
+                  attemptSignIn();
 //                Intent ClosetIntent = new Intent(getActivity(),Closet.class);
 //                startActivity(ClosetIntent);
-                Intent homeActivity = new Intent(getActivity(), HomeActivity.class);
-                startActivity(homeActivity);
-                Intent ClosetIntent = new Intent(getActivity(),ClosetActivity.class);
-                startActivity(ClosetIntent);
+//                Intent homeActivity = new Intent(getActivity(), HomeActivity.class);
+//                startActivity(homeActivity);
+//                Intent ClosetIntent = new Intent(getActivity(),ClosetActivity.class);
+//                startActivity(ClosetIntent);
 
                 break;
             case R.id.username_register_button:
@@ -91,10 +100,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
      * If there are form errors (invalid username, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
-//        if (mAuthTask != null) {
-////            return;
-////        }
+    private void attemptSignIn() {
+        if (mAuth == null) {
+            return;
+        }
 
         // Reset errors.
         mUsernameView.setError(null);
@@ -130,14 +139,28 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-//            showProgress(true);
-//            mAuthTask = new LoginActivity.UserLoginTask(username, password);
-
-//            Intent menuIntent = new Intent(this, PreferencesActivity.class);
-//            startActivity(menuIntent);
+            attemptLogin(username,password);
         }
+    }
+
+    public void attemptLogin(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            Intent homeActivity = new Intent(getActivity(), HomeActivity.class);
+                            startActivity(homeActivity);
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(getActivity(), "Authentication failed, please check if email and password are correct", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     private boolean isUsernameValid(String username) {

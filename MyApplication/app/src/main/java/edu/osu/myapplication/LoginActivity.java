@@ -11,7 +11,6 @@ import android.util.Log;
 public class LoginActivity extends HomeActivity {
 
     private final String TAG = getClass().getSimpleName();
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
