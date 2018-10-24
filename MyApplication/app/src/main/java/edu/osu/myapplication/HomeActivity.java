@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.calender:
                 return true;
             case R.id.closet:
-                Intent closetIntent = new Intent(HomeActivity.this, Closet.class);
+                Intent closetIntent = new Intent(HomeActivity.this, ClosetActivity.class);
                 currentRunning = closetIntent;
                 startActivity(closetIntent);
                 return true;
