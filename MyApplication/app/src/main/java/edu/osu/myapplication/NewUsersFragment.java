@@ -20,8 +20,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
+
+import edu.osu.myapplication.Data.User;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -33,7 +36,7 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
     private EditText mUsername,mEmail, mPassword;
     private FirebaseAuth mAuth;
 
-    private DatabaseReference dbRef;
+    private DatabaseReference mDatabase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,23 +73,31 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
     }
 
     public boolean areValuesValid(){
+        boolean isValid = true;
         String email = mEmail.getText().toString();
+        String userName = mUsername.getText().toString();
         String password = mPassword.getText().toString();
         Pattern emailValid = Patterns.EMAIL_ADDRESS;
-        if(password.length()!=0 && emailValid.matcher(email).matches()){
-            return true;
-        }
+
         if(password.length()<4){
             mPassword.setError(getString(R.string.error_invalid_password));
+            isValid = false;
         }
-        if( emailValid.matcher(email).matches()) {
+        if(!emailValid.matcher(email).matches()) {
             mEmail.setError(getString(R.string.invalid_email));
+            isValid = false;
         }
-        return false;
+        if(userName.length()<4) {
+            mUsername.setError(getString(R.string.error_invalid_username));
+            isValid = false;
+        }
+
+        return isValid;
     }
     public void createAccount(){
-        String email = mEmail.getText().toString();
-        String password = mPassword.getText().toString();
+        final String email = mEmail.getText().toString();
+        final String password = mPassword.getText().toString();
+        final String username = mUsername.getText().toString();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
@@ -96,6 +107,8 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            writeNewUser(email,username, user.getUid());
+
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -104,10 +117,17 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
                                     Toast.LENGTH_SHORT).show();
                            // updateUI(null);
                         }
-
-                        // ...
                     }
                 });
+    }
+
+    private void writeNewUser(String email, String userName,  String userId) {
+        if(mDatabase==null) {
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+        }
+        User newUser = new User(userName, email, userId);
+
+        mDatabase.child("users").child(userId).setValue(newUser);
     }
 
     private void updateUI(FirebaseUser user) {

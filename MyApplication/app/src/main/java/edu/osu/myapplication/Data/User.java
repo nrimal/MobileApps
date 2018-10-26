@@ -1,13 +1,18 @@
-package edu.osu.myapplication;
+package edu.osu.myapplication.Data;
+
 
 public class User {
-    String userName, email, password;
+    String userName, email, userId;
     int pereferencePk, storePreferencePk;
     
-    public User(String userName, String email, String password){
+    public User(String userName, String email){
         this.userName = userName;
         this.email = email;
-        this.password = password;
+    }
+    public User(String userName, String email, String userId){
+        this.userName = userName;
+        this.email = email;
+        this.userId = userId;
     }
     public User(){}
 
@@ -27,11 +32,5 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getUserId() {return userId; }
 }
