@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,9 +32,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 
 public class AddClosetItemFragment extends Fragment implements View.OnClickListener {
@@ -45,6 +50,8 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     private ImageView picture;
     private Uri selectedImage;
     private String[] spinnerValues;
+
+    private FirebaseAuth mAuth;
     String Username;
     FirebaseDatabase database;
 
@@ -69,9 +76,12 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
         btnSubmit.setOnClickListener(this);
         addPhoto.setOnClickListener(this);
 
-        Username = FirebaseInstanceId.getInstance().getId()+"";
-        database = FirebaseDatabase.getInstance();
+        //Username = FirebaseInstanceId.getInstance().getId()+"";
+        mAuth = FirebaseAuth.getInstance();
+        Username = mAuth.getCurrentUser()+"";
 
+        database = FirebaseDatabase.getInstance();
+        Log.d(TAG, "database: "+database.toString());
         return v;
     }
 
@@ -86,31 +96,34 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.btnSubmit:
+                //TODO: .... add category...closet subfolder
                 Log.d(TAG,"button clicked : submit");
-                Log.d(TAG,"type : " +spinner1.getSelectedItem().toString());
                 Log.d(TAG,"store : " +spinner2.getSelectedItem().toString() );
                 Log.d(TAG,"color : "+spinner3.getSelectedItem().toString() );
                 Log.d(TAG,"image : "+selectedImage );
 
                 ClothingInstance CI = new ClothingInstance(
-                        spinner1.getSelectedItem().toString() ,
                         spinner2.getSelectedItem().toString(),
                         spinner3.getSelectedItem().toString(),
                         selectedImage + ""
                 );
 
                 //send to Firebase
-
-                DatabaseReference myRef = database.getReference("User_"+Username+"/Closet");
+                String CType = spinner1.getSelectedItem().toString().replace('-','_');
+                Log.d(TAG,"Users/"+Username+"/Closet/"+CType);
+                DatabaseReference myRef = database.getReference("users/"+Username+"/Closet/"+CType);
                 DatabaseReference newItem = myRef.push();
+                Log.d(TAG,CI.toString());
                 newItem.setValue(CI);
-                
+                //newItem.setValue("test");
+
+
                 getActivity().finish();
 
                 break;
             case R.id.btnAddPicture:
                 Log.d(TAG,"button clicked "+v);
-
+                //TODO: Camera Intent
                 Intent ImageGet = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 //startActivity(newUser);
 
@@ -143,13 +156,11 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
 
     private static class ClothingInstance {
-        public String Type;
         public String Store;
         public String Color;
         public String Image;
         public ClothingInstance(){}
-        public ClothingInstance(String Type, String Store, String Color, String Image) {
-            this.Type = Type;
+        public ClothingInstance(String Store, String Color, String Image) {
             this.Store = Store;
             this.Color = Color;
             this.Image = Image;
