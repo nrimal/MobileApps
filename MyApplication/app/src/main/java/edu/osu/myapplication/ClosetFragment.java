@@ -45,7 +45,7 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
 
         //Username = FirebaseInstanceId.getInstance().getId()+"";
         mAuth = FirebaseAuth.getInstance();
-        Username = mAuth.getCurrentUser()+"";
+        Username = mAuth.getCurrentUser().getUid()+"";
         database = FirebaseDatabase.getInstance();
 
         ShoesText = v.findViewById(R.id.showShoes);

@@ -78,7 +78,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
         //Username = FirebaseInstanceId.getInstance().getId()+"";
         mAuth = FirebaseAuth.getInstance();
-        Username = mAuth.getCurrentUser()+"";
+        Username = mAuth.getCurrentUser().getUid();
 
         database = FirebaseDatabase.getInstance();
         Log.d(TAG, "database: "+database.toString());
