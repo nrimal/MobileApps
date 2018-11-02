@@ -51,9 +51,14 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     private Uri selectedImage;
     private String[] spinnerValues;
 
+    private Button btnUpdate;
+
     private FirebaseAuth mAuth;
     String Username;
     FirebaseDatabase database;
+
+    DatabaseReference myRef;
+    DatabaseReference newItem;
 
     public static final int GET_FROM_GALLERY = 3;
 
@@ -71,10 +76,13 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
         addPhoto = (Button) v.findViewById(R.id.btnAddPicture);
         picture = (ImageView) v.findViewById(R.id.closet_item_image) ;
 
+
         spinnerValues=new String[]{"Shoes","Unknown","Red"};
 
         btnSubmit.setOnClickListener(this);
         addPhoto.setOnClickListener(this);
+
+
 
         //Username = FirebaseInstanceId.getInstance().getId()+"";
         mAuth = FirebaseAuth.getInstance();
@@ -94,6 +102,9 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        String CType = spinner1.getSelectedItem().toString().replace('-','_');
+        ClothingInstance CI;
+
         switch(v.getId()){
             case R.id.btnSubmit:
                 //TODO: .... add category...closet subfolder
@@ -102,17 +113,17 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                 Log.d(TAG,"color : "+spinner3.getSelectedItem().toString() );
                 Log.d(TAG,"image : "+selectedImage );
 
-                ClothingInstance CI = new ClothingInstance(
+                 CI = new ClothingInstance(
                         spinner2.getSelectedItem().toString(),
                         spinner3.getSelectedItem().toString(),
                         selectedImage + ""
                 );
 
                 //send to Firebase
-                String CType = spinner1.getSelectedItem().toString().replace('-','_');
+
                 Log.d(TAG,"Users/"+Username+"/Closet/"+CType);
-                DatabaseReference myRef = database.getReference("users/"+Username+"/Closet/"+CType);
-                DatabaseReference newItem = myRef.push();
+                myRef = database.getReference("users/"+Username+"/Closet/"+CType);
+                newItem = myRef.push();
                 Log.d(TAG,CI.toString());
                 newItem.setValue(CI);
                 //newItem.setValue("test");

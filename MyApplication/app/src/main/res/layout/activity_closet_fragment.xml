@@ -81,6 +81,26 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_shirt"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/ClearAll"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Clear all"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/Edit"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Edit"
+                android:textStyle="bold" />
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
