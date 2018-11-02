@@ -40,8 +40,11 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
         View v =  inflater.inflate(R.layout.activity_closet_fragment, container, false);
 
 
-        Button mUsernameRegisterButton = v.findViewById(R.id.btnAddItem);
-        mUsernameRegisterButton.setOnClickListener(this);
+        Button additem = v.findViewById(R.id.btnAddItem);
+        additem.setOnClickListener(this);
+
+        Button clearitem = v.findViewById(R.id.ClearAll);
+        clearitem.setOnClickListener(this);
 
         //Username = FirebaseInstanceId.getInstance().getId()+"";
         mAuth = FirebaseAuth.getInstance();
@@ -70,6 +73,12 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 Intent ClosetIntent = new Intent(getActivity(),AddClosetItemActivity.class);
                 startActivity(ClosetIntent);
                 break;
+
+            case R.id.ClearAll:
+                DatabaseReference myRef = database.getReference("users/"+Username+"/Closet");
+                 myRef.setValue(null);
+                break;
+
         }
     }
 
@@ -90,10 +99,9 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                     for(DataSnapshot ClothingItem : clothingTypeSnapshot.getChildren()){
                         Log.d(TAG, ClothingItem.toString());
                         ClothingInstance item = ClothingItem.getValue(ClothingInstance.class);
-                        if(Type.equals("Shoes")){
-                         Shoes.add(item);
-                          ShoesText.append("Shoes("+item.Color+ ")\t From :" + item.Store + "\n");
-                        }
+
+                            AddItem(Type,item);
+
                     }
 
                 }
@@ -125,6 +133,19 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
             this.Image = Image;
         }
     }
+
+    private void AddItem(String Type,ClothingInstance item){
+        if(Type.equals("Shoes")){
+            Shoes.add(item);
+            ShoesText.append("Shoes("+item.Color+ ")\t From :" + item.Store + "\n");
+        }
+
+
+
+
+
+    }
+
 
 }
 
