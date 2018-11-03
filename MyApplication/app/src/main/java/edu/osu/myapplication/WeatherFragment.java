@@ -1,21 +1,20 @@
 package edu.osu.myapplication;
 
-import android.accounts.Account;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,38 +26,59 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class HomeActivity extends AppCompatActivity {
-    private Intent currentRunning;
+
+public class WeatherFragment extends Fragment implements View.OnClickListener{
+
     TextView selectCity, cityField, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
     ProgressBar loader;
     Typeface weatherFont;
     String city = "Columbus,US";
     String OPEN_WEATHER_MAP_API = "2d19f5e9eb5f8e1698ce84001ccbeddf";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
 
-        loader = (ProgressBar) findViewById(R.id.loader);
-        selectCity = (TextView) findViewById(R.id.selectCity);
-        cityField = (TextView) findViewById(R.id.city_field);
-        updatedField = (TextView) findViewById(R.id.updated_field);
-        detailsField = (TextView) findViewById(R.id.details_field);
-        currentTemperatureField = (TextView) findViewById(R.id.current_temperature_field);
-        humidity_field = (TextView) findViewById(R.id.humidity_field);
-        pressure_field = (TextView) findViewById(R.id.pressure_field);
-        weatherIcon = (TextView) findViewById(R.id.weather_icon);
-        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weathericons-regular-webfont.ttf");
+
+    public WeatherFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v =  inflater.inflate(R.layout.fragment_weather, container, false);
+
+        loader = v.findViewById(R.id.loader);
+        selectCity = v.findViewById(R.id.selectCity);
+        cityField = v.findViewById(R.id.city_field);
+        updatedField = v.findViewById(R.id.updated_field);
+        detailsField = v.findViewById(R.id.details_field);
+        currentTemperatureField = v.findViewById(R.id.current_temperature_field);
+        humidity_field = v.findViewById(R.id.humidity_field);
+        pressure_field = v.findViewById(R.id.pressure_field);
+        weatherIcon = v.findViewById(R.id.weather_icon);
+        weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
         weatherIcon.setTypeface(weatherFont);
 
         taskLoadUp(city);
-        selectCity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+
+
+        return inflater.inflate(R.layout.fragment_weather, container, false);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.selectCity:
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("Change City");
-                final EditText input = new EditText(HomeActivity.this);
+                final EditText input = new EditText(getContext());
                 input.setText(city);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -80,17 +100,17 @@ public class HomeActivity extends AppCompatActivity {
                             }
                         });
                 alertDialog.show();
-            }
-        });
-
+            break;
+        }
     }
 
+
     public void taskLoadUp(String query) {
-        if (Function.isNetworkAvailable(getApplicationContext())) {
+        if (Function.isNetworkAvailable(getActivity().getApplicationContext())) {
             DownloadWeather task = new DownloadWeather();
             task.execute(query);
         } else {
-            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -131,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 }
             } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Error, Check City", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Error, Check City", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -142,46 +162,5 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_preferences, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.home_activity:
-                killRunningActivity();
-                return true;
-            case R.id.calender:
-                return true;
-            case R.id.closet:
-                Intent closetIntent = new Intent(HomeActivity.this, ClosetActivity.class);
-                currentRunning = closetIntent;
-                startActivity(closetIntent);
-                return true;
-            case R.id.account:
-                Intent accountIntent = new Intent(HomeActivity.this, PreferencesActivity.class);
-                currentRunning = accountIntent;
-                startActivity(accountIntent);
-                return true;
-            default:
-                return true;
-        }
-    }
 
-//    public void showPopup(View v){
-//        PopupMenu popup = new PopupMenu(this, v);
-//
-//    }
-//
-//    @Override
-//    public boolean onMenuItemClick(MenuItem item){
-//
-//    }
-    private void killRunningActivity(){
-//        currentRunning.stack
-    }
 }

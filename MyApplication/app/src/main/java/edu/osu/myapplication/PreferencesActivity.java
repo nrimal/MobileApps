@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-public class PreferencesActivity extends HomeActivity {
+public class PreferencesActivity extends MainActivity {
     private final String TAG = getClass().getSimpleName();
 
     protected Fragment createFragment() {

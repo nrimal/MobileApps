@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 
-public class ClosetActivity extends HomeActivity {
+public class ClosetActivity extends MainActivity {
 
     private static final String TAG = "Closet_Activity";
 
