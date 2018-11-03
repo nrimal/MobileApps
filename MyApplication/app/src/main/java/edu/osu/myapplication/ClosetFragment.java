@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,8 +25,10 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "Closet_Frag_Activity";
 
+    private FirebaseAuth mAuth;
     String Username;
     FirebaseDatabase database;
+
     List<ClothingInstance> Shoes;
 
     TextView ShoesText;
@@ -37,10 +40,15 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
         View v =  inflater.inflate(R.layout.activity_closet_fragment, container, false);
 
 
-        Button mUsernameRegisterButton = v.findViewById(R.id.btnAddItem);
-        mUsernameRegisterButton.setOnClickListener(this);
+        Button additem = v.findViewById(R.id.btnAddItem);
+        additem.setOnClickListener(this);
 
-        Username = FirebaseInstanceId.getInstance().getId()+"";
+        Button clearitem = v.findViewById(R.id.ClearAll);
+        clearitem.setOnClickListener(this);
+
+        //Username = FirebaseInstanceId.getInstance().getId()+"";
+        mAuth = FirebaseAuth.getInstance();
+        Username = mAuth.getCurrentUser().getUid()+"";
         database = FirebaseDatabase.getInstance();
 
         ShoesText = v.findViewById(R.id.showShoes);
@@ -65,12 +73,18 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 Intent ClosetIntent = new Intent(getActivity(),AddClosetItemActivity.class);
                 startActivity(ClosetIntent);
                 break;
+
+            case R.id.ClearAll:
+                DatabaseReference myRef = database.getReference("users/"+Username+"/Closet");
+                 myRef.setValue(null);
+                break;
+
         }
     }
 
 
     private void getClothes(){
-        DatabaseReference myRef = database.getReference("User_"+Username+"/Closet");
+        DatabaseReference myRef = database.getReference("users/"+Username+"/Closet");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,13 +92,16 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 // whenever data at this location is updated.
                 Log.d(TAG, dataSnapshot.toString());
                 Shoes = new LinkedList<ClothingInstance>();
-                for (DataSnapshot clothingSnapshot: dataSnapshot.getChildren()) {
-                    Log.d(TAG, clothingSnapshot.toString());
-                    ClothingInstance item = clothingSnapshot.getValue(ClothingInstance.class);
+                ShoesText.setText("");
+                for (DataSnapshot clothingTypeSnapshot: dataSnapshot.getChildren()) {
+                    Log.d(TAG, clothingTypeSnapshot.toString());
+                    String Type = clothingTypeSnapshot.getKey();
+                    for(DataSnapshot ClothingItem : clothingTypeSnapshot.getChildren()){
+                        Log.d(TAG, ClothingItem.toString());
+                        ClothingInstance item = ClothingItem.getValue(ClothingInstance.class);
 
-                    if(item.Type.equals("Shoes")){
-                        Shoes.add(item);
-                        ShoesText.append("Shoes("+item.Color+ ")\t From :" + item.Store + "\n");
+                            AddItem(Type,item);
+
                     }
 
                 }
@@ -116,6 +133,19 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
             this.Image = Image;
         }
     }
+
+    private void AddItem(String Type,ClothingInstance item){
+        if(Type.equals("Shoes")){
+            Shoes.add(item);
+            ShoesText.append("Shoes("+item.Color+ ")\t From :" + item.Store + "\n");
+        }
+
+
+
+
+
+    }
+
 
 }
 
