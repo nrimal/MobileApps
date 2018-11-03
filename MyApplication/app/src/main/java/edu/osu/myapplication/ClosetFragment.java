@@ -31,9 +31,11 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
     String Username;
     FirebaseDatabase database;
 
-    List<ClothingInstance> Shoes;
-
     LinearLayout ShoesItem;
+    LinearLayout PantsItem;
+    LinearLayout TShirtItem;
+    LinearLayout JacketItem;
+    LinearLayout ShirtItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,12 +47,31 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
         Button additem = v.findViewById(R.id.btnAddItem);
         additem.setOnClickListener(this);
 
+        Button ShowHideShoes = v.findViewById(R.id.ShowHideShoes);
+        ShowHideShoes.setOnClickListener(this);
+
+        Button ShowHidePants = v.findViewById(R.id.ShowHidePants);
+        ShowHidePants.setOnClickListener(this);
+
+        Button ShowHideTShirts = v.findViewById(R.id.ShowHideTShirts);
+        ShowHideTShirts.setOnClickListener(this);
+
+        Button ShowHideJacket = v.findViewById(R.id.ShowHideJackets);
+        ShowHideJacket.setOnClickListener(this);
+
+        Button ShowHideShirts = v.findViewById(R.id.ShowHideShirts);
+        ShowHideShirts.setOnClickListener(this);
+
         //Username = FirebaseInstanceId.getInstance().getId()+"";
         mAuth = FirebaseAuth.getInstance();
         Username = mAuth.getCurrentUser().getUid()+"";
         database = FirebaseDatabase.getInstance();
 
         ShoesItem = v.findViewById(R.id.showShoes);
+        PantsItem = v.findViewById(R.id.showPants);
+        TShirtItem = v.findViewById(R.id.showTShirts);
+        JacketItem = v.findViewById(R.id.showJackets);
+        ShirtItem = v.findViewById(R.id.showShirts);
 
         getClothes();
         return v;
@@ -72,7 +93,41 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 Intent ClosetIntent = new Intent(getActivity(),AddClosetItemActivity.class);
                 startActivity(ClosetIntent);
                 break;
-
+            case R.id.ShowHideShoes:
+                if(ShoesItem.getVisibility() == View.VISIBLE) {
+                    ShoesItem.setVisibility(View.GONE);
+                }else{
+                    ShoesItem.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.ShowHidePants:
+                if(PantsItem.getVisibility() == View.VISIBLE) {
+                    PantsItem.setVisibility(View.GONE);
+                }else{
+                    PantsItem.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.ShowHideTShirts:
+                if(TShirtItem.getVisibility() == View.VISIBLE) {
+                    TShirtItem.setVisibility(View.GONE);
+                }else{
+                    TShirtItem.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.ShowHideJackets:
+                if(JacketItem.getVisibility() == View.VISIBLE) {
+                    JacketItem.setVisibility(View.GONE);
+                }else{
+                    JacketItem.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.ShowHideShirts:
+                if(ShirtItem.getVisibility() == View.VISIBLE) {
+                    ShirtItem.setVisibility(View.GONE);
+                }else{
+                    ShirtItem.setVisibility(View.VISIBLE);
+                }
+                break;
         }
     }
 
@@ -86,8 +141,12 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 // whenever data at this location is updated.
                 Log.d(TAG, dataSnapshot.toString());
 
-                Shoes = new LinkedList<ClothingInstance>();
                 ShoesItem.removeAllViews();
+                PantsItem.removeAllViews();
+                TShirtItem.removeAllViews();
+                JacketItem.removeAllViews();
+                ShirtItem.removeAllViews();
+
                 for (DataSnapshot clothingTypeSnapshot: dataSnapshot.getChildren()) {
                     Log.d(TAG, clothingTypeSnapshot.toString());
                     String Type = clothingTypeSnapshot.getKey();
@@ -101,8 +160,6 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                     }
 
                 }
-
-                Log.d(TAG, "Shoes :"+Shoes.size());
 
 
                 //ClosetActivity = dataSnapshot.getValue(Clothes.class);
@@ -149,7 +206,16 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ClosetIntent = new Intent(getActivity(),AddClosetItemActivity.class);
+                ClosetIntent.putExtra("EditID", ID);
+                ClosetIntent.putExtra("EditType", Type);
+                startActivity(ClosetIntent);
 
+            }
+        });
 
         Display display = this.getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -164,20 +230,17 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
 
         text.setLayoutParams(lp);
 
-        //Set Items
-        if(Type.equals("Shoes")){
-            Shoes.add(item);
-            //text.setText();
-            ShoesItem.addView(layout);
-
-            text.append("Shoes("+item.Color+ ")\t From :" + item.Store);
-            layout.addView(text);
-            layout.addView(edit);
-            layout.addView(delete);
-            //ShoesItem.append( + "\n");
+        switch (Type){
+            case "Shoes":ShoesItem.addView(layout);text.append("Shoes("+item.Color+ ")\t From :" + item.Store);break;
+            case "Pants":PantsItem.addView(layout);text.append("Pants("+item.Color+ ")\t From :" + item.Store);break;
+            case "T_Shirt":TShirtItem.addView(layout);text.append("T-Shirt("+item.Color+ ")\t From :" + item.Store);break;
+            case "Jacket":JacketItem.addView(layout);text.append("Jacket("+item.Color+ ")\t From :" + item.Store);break;
+            case "Shirt":ShirtItem.addView(layout);text.append("Shirt("+item.Color+ ")\t From :" + item.Store);break;
         }
 
-
+        layout.addView(text);
+        layout.addView(edit);
+        layout.addView(delete);
     }
 
 
