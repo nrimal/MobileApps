@@ -1,12 +1,14 @@
 package edu.osu.myapplication;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     private Intent currentRunning;
@@ -17,15 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        FragmentManager manager = getSupportFragmentManager();
-//        Fragment fragment = manager.findFragmentById(R.id.weather_fragment);
-//        if(fragment==null) {
-//            fragment = new LoginFragment();
-//            manager.beginTransaction()
-//                    .add(R.id.weather_fragment, fragment)
-//                    .commit();
-//        }
         Log.d(TAG, "onCreate(Bundle) called");
 
     }
@@ -39,9 +32,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+
+//        View menuItemView = findViewById(R.id.)
+
         switch (item.getItemId()) {
             case R.id.home_activity:
-                killRunningActivity();
+                Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+                currentRunning = homeIntent;
+                startActivity(homeIntent);
                 return true;
             case R.id.calender:
                 return true;

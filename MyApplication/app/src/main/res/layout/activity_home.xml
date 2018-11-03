@@ -1,6 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <fragment
+        android:name="edu.osu.myapplication.WeatherFragment"
+        android:id="@+id/weather_fragment"
+        android:layout_height="250dp"
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        />
+
+</LinearLayout>

@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){ //if user is already signed in go to homepage
-            Intent homePage = new Intent(getActivity(), MainActivity.class);
+            Intent homePage = new Intent(getActivity(), HomeActivity.class);
             startActivity(homePage);
         }
         return v;
