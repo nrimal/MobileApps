@@ -60,6 +60,9 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     DatabaseReference myRef;
     DatabaseReference newItem;
 
+    Bundle Extras;
+    String EditID;
+
     public static final int GET_FROM_GALLERY = 3;
 
     @Override
@@ -90,6 +93,15 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
         database = FirebaseDatabase.getInstance();
         Log.d(TAG, "database: "+database.toString());
+
+        Extras = getActivity().getIntent().getExtras();
+        EditID=null;
+              if (Extras!=null){
+                  EditID = Extras.getString("EditID");
+                  btnSubmit.setText("Update");
+                  spinner1.setVisibility(View.GONE);
+              }
+              Log.d(TAG,"Editing? : "+EditID+"==================================================");
         return v;
     }
 
@@ -120,11 +132,18 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                 );
 
                 //send to Firebase
-
+                if(EditID!=null){CType = Extras.getString("EditType");}
                 Log.d(TAG,"Users/"+Username+"/Closet/"+CType);
                 myRef = database.getReference("users/"+Username+"/Closet/"+CType);
-                newItem = myRef.push();
+
+                if(EditID==null){
+                    newItem = myRef.push();
+                }else{
+                    newItem = myRef.child(EditID);
+                }
+
                 Log.d(TAG,CI.toString());
+
                 newItem.setValue(CI);
                 //newItem.setValue("test");
 

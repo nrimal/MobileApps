@@ -206,7 +206,16 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ClosetIntent = new Intent(getActivity(),AddClosetItemActivity.class);
+                ClosetIntent.putExtra("EditID", ID);
+                ClosetIntent.putExtra("EditType", Type);
+                startActivity(ClosetIntent);
 
+            }
+        });
 
         Display display = this.getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
