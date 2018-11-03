@@ -39,6 +39,7 @@
 
 
             <Button
+                android:id="@+id/ShowHideShoes"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,6 +48,7 @@
                 android:textStyle="bold" />
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/showShoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,33 +56,73 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/ShowHidePants"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_pants"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/showPants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
             <Button
+                android:id="@+id/ShowHideTShirts"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_tshirt"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/showTShirts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
             <Button
+                android:id="@+id/ShowHideJackets"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_jacket"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/showJackets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
             <Button
+                android:id="@+id/ShowHideShirts"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_shirt"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/showShirts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
