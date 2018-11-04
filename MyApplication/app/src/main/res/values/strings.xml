@@ -125,7 +125,7 @@
 
     <!--Permissions-->
 
-    <string name="title_location_permission">Location Permission</string>
+    <string name="title_location_permission">Location service Required for weather</string>
     <string name="text_location_permission">Location service needs to be enabled for weather</string>
     <string name="ok">Okay</string>
 
