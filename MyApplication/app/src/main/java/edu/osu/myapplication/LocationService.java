@@ -42,6 +42,9 @@ public class LocationService implements LocationListener {
      */
     private LocationService( Context context ) {
         locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        Log.d(tag,"LocationService created");
+    }
+    public void getUpdateLocation(Context context){
         try{
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             Criteria criteria = new Criteria();
@@ -58,9 +61,7 @@ public class LocationService implements LocationListener {
             Toast.makeText(context, "Location service not granted", Toast.LENGTH_LONG).show();
         }
 
-        Log.d(tag,"LocationService created");
     }
-
     @Override
     public void onProviderDisabled(String provider) {
         Log.d(tag,"disable");

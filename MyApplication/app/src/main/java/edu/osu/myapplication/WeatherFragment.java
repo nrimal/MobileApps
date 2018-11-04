@@ -1,5 +1,6 @@
 package edu.osu.myapplication;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +10,9 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -36,8 +39,9 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     public Typeface weatherFont;
     public String city = "Columbus,US";
     public String OPEN_WEATHER_MAP_API = "2d19f5e9eb5f8e1698ce84001ccbeddf";
-//
-
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private LocationService locationService;
+    private View view;
     public WeatherFragment() {
         // Required empty public constructor
     }
@@ -47,39 +51,102 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    String requiredPermission = "android.permission.ACCESS_FINE_LOCATION";
-    String requiredPermission2 = "android.permission.ACCESS_COARSE_LOCATION";
-    int hasLocationPerm = getActivity().checkCallingOrSelfPermission(requiredPermission);
-    int hasLocationPerm2 = getActivity().checkCallingOrSelfPermission(requiredPermission2);
-    if(hasLocationPerm==PackageManager.PERMISSION_GRANTED && hasLocationPerm2 == PackageManager.PERMISSION_GRANTED){
-        LocationService locationService = LocationService.getLocationManager(getActivity());
-    }else{
-        Toast.makeText(getActivity().getApplicationContext(), "Location not enabled, using default", Toast.LENGTH_LONG).show();
-    }
-
+//    String requiredPermission = "android.permission.ACCESS_FINE_LOCATION";
+//    String requiredPermission2 = "android.permission.ACCESS_COARSE_LOCATION";
+//    int hasLocationPerm = getActivity().checkCallingOrSelfPermission(requiredPermission);
+//    int hasLocationPerm2 = getActivity().checkCallingOrSelfPermission(requiredPermission2);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_weather, container, false);
+        view =  inflater.inflate(R.layout.fragment_weather, container, false);
 
-        loader = v.findViewById(R.id.loader);
-        cityField = v.findViewById(R.id.city_field);
-        updatedField = v.findViewById(R.id.updated_field);
-        detailsField = v.findViewById(R.id.details_field);
-        currentTemperatureField = v.findViewById(R.id.current_temperature_field);
-        humidity_field = v.findViewById(R.id.humidity_field);
-        pressure_field = v.findViewById(R.id.pressure_field);
-        weatherIcon = v.findViewById(R.id.weather_icon);
+        loader = view.findViewById(R.id.loader);
+        cityField = view.findViewById(R.id.city_field);
+        updatedField = view.findViewById(R.id.updated_field);
+        detailsField = view.findViewById(R.id.details_field);
+        currentTemperatureField = view.findViewById(R.id.current_temperature_field);
+        humidity_field = view.findViewById(R.id.humidity_field);
+        pressure_field = view.findViewById(R.id.pressure_field);
+        weatherIcon = view.findViewById(R.id.weather_icon);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
         weatherIcon.setTypeface(weatherFont);
-        taskLoadUp(city , v);
+        checkLocationPermission();
 
         return inflater.inflate(R.layout.fragment_weather, container, false);
     }
 
 
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.title_location_permission)
+                        .setMessage(R.string.text_location_permission)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            if(locationService==null) {
+                locationService = LocationService.getLocationManager(getActivity());
+            }
+            locationService.getUpdateLocation(getContext());
+            taskLoadUp(city, view);
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        locationService = LocationService.getLocationManager(getActivity());
+                        locationService.getUpdateLocation(getContext());
+                        taskLoadUp(city, view);
+                    }
+
+                } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Location not enabled, using default", Toast.LENGTH_LONG).show();
+                        taskLoadUp(city, view);
+                }
+                return;
+            }
+        }
+    }
     @Override
     public void onClick(View v) {
 
@@ -160,8 +227,6 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
 
 
         }
-
-
 
     }
 
