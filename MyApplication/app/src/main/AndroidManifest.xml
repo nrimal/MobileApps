@@ -30,10 +30,10 @@
 
         <activity
             android:name=".ClosetActivity"
-             />
+            />
         <activity
             android:name=".PreferencesActivity"
-             />
+            />
         <activity
             android:name=".AddClosetItemActivity"
             android:label="@string/title_activity_add__closet__item_"
@@ -41,6 +41,9 @@
         <activity android:name=".NewUsersActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".CalendarActivity" />
+        <activity android:name=".EventListActivity" />
+        <activity android:name=".AddEventActivity" />
     </application>
 
 </manifest>
