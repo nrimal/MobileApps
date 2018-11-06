@@ -1,26 +1,26 @@
 package edu.osu.myapplication;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 
-public class CalendarActivity extends AppCompatActivity {
-    private static final String TAG = CalendarActivity.class.getSimpleName();
+public class AddEventActivity extends AppCompatActivity {
+    private String TAG = AddEventActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calender);
+        setContentView(R.layout.activity_add_event);
 
         FragmentManager manager = getSupportFragmentManager();
-        Fragment fragment = manager.findFragmentById(R.id.calendar);
+        Fragment fragment = manager.findFragmentById(R.id.add_event);
 
         if (fragment == null) {
-            fragment = new CalendarFragment();
+            fragment = new AddEventFragment();
             manager.beginTransaction()
-                    .add(R.id.calendar, fragment)
+                    .add(R.id.add_event, fragment)
                     .commit();
         }
         Log.d(TAG, "onCreate(Bundle) called");

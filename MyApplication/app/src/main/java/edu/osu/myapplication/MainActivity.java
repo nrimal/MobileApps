@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
                 killRunningActivity();
                 return true;
             case R.id.calender:
+                Intent calendarEventIntent = new Intent(MainActivity.this, CalendarActivity.class);
+                currentRunning = calendarEventIntent;
+                startActivity(calendarEventIntent);
                 return true;
             case R.id.closet:
                 Intent closetIntent = new Intent(MainActivity.this, ClosetActivity.class);
