@@ -90,7 +90,7 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
                 map.put("eventCategoryKey", newEvent.getCategoryID());
                 map.put("hourKey", hour);
                 map.put("minuteKey", minute);
-                database.child(date).child(hour + "" + minute).setValue(map);
+                database.child(date).child(String.format("%02d%02d", hour, minute)).setValue(map);
 
                 getActivity().finish();
                 break;
