@@ -1,11 +1,13 @@
 package edu.osu.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -40,12 +42,42 @@ public class EventListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_event_list, container, false);
 
         mListView = v.findViewById(R.id.listOfEvents);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle extras = getActivity().getIntent().getExtras();
+                String eventName = (String) mListView.getItemAtPosition(position);
+                String date = getCurrentDate();
 
+                Intent changeEvent = new Intent(getActivity(), AddEventActivity.class);
+                changeEvent.putExtra("year", extras.getInt("year"));
+                changeEvent.putExtra("month", extras.getInt("month"));
+                changeEvent.putExtra("dayOfMonth", extras.getInt("dayOfMonth"));
+                changeEvent.putExtra("changeEvent", 1);
+                changeEvent.putExtra("changeEventDate", date);
+                changeEvent.putExtra("changeEventTime", eventName.substring(eventName.lastIndexOf("-") + 1).trim().replace(":",""));
+                changeEvent.putExtra("changeEventName", eventName.substring(0, eventName.lastIndexOf("-")).trim());
+                startActivity(changeEvent);
+            }
+        });
+
+        populateEventList();
+
+        // Inflate the layout for this fragment
+        return v;
+    }
+
+    public String getCurrentDate() {
         Bundle extras = getActivity().getIntent().getExtras();
         int year = extras.getInt("year");
-        int month = extras.getInt("month") + 1;
+        int month = extras.getInt("month") + 1; // Jan = 0 so add 1 to get Jan = 1
         int dayOfMonth = extras.getInt("dayOfMonth");
-        final String date = String.format("%04d%02d%02d", year, month, dayOfMonth);
+
+        return String.format("%04d%02d%02d", year, month, dayOfMonth);
+    }
+
+    public void populateEventList() {
+        final String date = getCurrentDate();
 
         mAuth = FirebaseAuth.getInstance();
         Username = mAuth.getCurrentUser().getUid()+"";
@@ -70,7 +102,7 @@ public class EventListFragment extends Fragment {
                         for (DataSnapshot timeItem : dateSnapshot.getChildren()) {
                             Log.d(TAG, timeItem.toString());
                             map = (HashMap<String, String>) timeItem.getValue();
-                            mArrayList.add(map.get("eventTitleKey"));
+                            mArrayList.add(map.get("eventTitleKey") + " - " + String.valueOf(map.get("hourKey")) + ":" + String.valueOf(map.get("minuteKey")));
                             arrayAdapter.notifyDataSetChanged();
                         }
                     }
@@ -83,9 +115,5 @@ public class EventListFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-        // Inflate the layout for this fragment
-        return v;
     }
 }

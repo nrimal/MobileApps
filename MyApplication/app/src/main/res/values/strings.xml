@@ -136,6 +136,7 @@
     <string name="event_name">Event Name:</string>
     <string name="event_category_text">Event Category:</string>
     <string name="add_event">Save</string>
+    <string name="add_event_cancel">Cancel</string>
 
     <string-array name="event_categories">
         <item>Casual</item>
