@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import edu.osu.myapplication.Data.Clothing;
+
 import static java.util.stream.Collectors.joining;
 
 
@@ -115,7 +117,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String CType = spinner1.getSelectedItem().toString().replace('-','_');
-        ClothingInstance CI;
+        Clothing CI;
 
         switch(v.getId()){
             case R.id.btnSubmit:
@@ -125,7 +127,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                 Log.d(TAG,"color : "+spinner3.getSelectedItem().toString() );
                 Log.d(TAG,"image : "+selectedImage );
 
-                 CI = new ClothingInstance(
+                 CI = new Clothing(
                         spinner2.getSelectedItem().toString(),
                         spinner3.getSelectedItem().toString(),
                         selectedImage + ""
@@ -183,19 +185,4 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
             }
         }
     }
-
-
-    private static class ClothingInstance {
-        public String Store;
-        public String Color;
-        public String Image;
-        public ClothingInstance(){}
-        public ClothingInstance(String Store, String Color, String Image) {
-            this.Store = Store;
-            this.Color = Color;
-            this.Image = Image;
-        }
-    }
-
-
 }

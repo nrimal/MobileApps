@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.osu.myapplication.Data.Clothing;
+
 public class ClosetFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "Closet_Frag_Activity";
@@ -153,7 +155,7 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                     for(DataSnapshot ClothingItem : clothingTypeSnapshot.getChildren()){
                         Log.d(TAG, ClothingItem.toString());
                         String ID = ClothingItem.getKey();
-                        ClothingInstance item = ClothingItem.getValue(ClothingInstance.class);
+                        Clothing item = ClothingItem.getValue(Clothing.class);
 
                             AddItem(ID,Type,item);
 
@@ -173,21 +175,9 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private static class ClothingInstance {
-        public String Type;
-        public String Store;
-        public String Color;
-        public String Image;
-        public ClothingInstance(){}
-        public ClothingInstance(String Type, String Store, String Color, String Image) {
-            this.Type = Type;
-            this.Store = Store;
-            this.Color = Color;
-            this.Image = Image;
-        }
-    }
 
-    private void AddItem(final String ID,final String Type, ClothingInstance item){
+
+    private void AddItem(final String ID,final String Type, Clothing item){
 
         //Format Layout
         LinearLayout layout = new LinearLayout(this.getActivity());
