@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(homeIntent);
                         return true;
                     case R.id.calender:
+                        Intent calendarIntent = new Intent(MainActivity.this, CalendarActivity.class);
+                        startActivity(calendarIntent);
                         return true;
                     case R.id.closet:
                         Intent closetIntent = new Intent(MainActivity.this, ClosetActivity.class);
