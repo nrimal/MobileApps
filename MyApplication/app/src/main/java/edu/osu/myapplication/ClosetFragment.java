@@ -1,13 +1,16 @@
 package edu.osu.myapplication;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,7 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
 
     List<ClothingInstance> Shoes;
 
-    TextView ShoesText;
+    LinearLayout ShoesItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,15 +45,12 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
         Button additem = v.findViewById(R.id.btnAddItem);
         additem.setOnClickListener(this);
 
-        Button clearitem = v.findViewById(R.id.ClearAll);
-        clearitem.setOnClickListener(this);
-
         //Username = FirebaseInstanceId.getInstance().getId()+"";
         mAuth = FirebaseAuth.getInstance();
         Username = mAuth.getCurrentUser().getUid()+"";
         database = FirebaseDatabase.getInstance();
 
-        ShoesText = v.findViewById(R.id.showShoes);
+        ShoesItem = v.findViewById(R.id.showShoes);
 
         getClothes();
         return v;
@@ -74,11 +73,6 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 startActivity(ClosetIntent);
                 break;
 
-            case R.id.ClearAll:
-                DatabaseReference myRef = database.getReference("users/"+Username+"/Closet");
-                 myRef.setValue(null);
-                break;
-
         }
     }
 
@@ -91,16 +85,18 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Log.d(TAG, dataSnapshot.toString());
+
                 Shoes = new LinkedList<ClothingInstance>();
-                ShoesText.setText("");
+                ShoesItem.removeAllViews();
                 for (DataSnapshot clothingTypeSnapshot: dataSnapshot.getChildren()) {
                     Log.d(TAG, clothingTypeSnapshot.toString());
                     String Type = clothingTypeSnapshot.getKey();
                     for(DataSnapshot ClothingItem : clothingTypeSnapshot.getChildren()){
                         Log.d(TAG, ClothingItem.toString());
+                        String ID = ClothingItem.getKey();
                         ClothingInstance item = ClothingItem.getValue(ClothingInstance.class);
 
-                            AddItem(Type,item);
+                            AddItem(ID,Type,item);
 
                     }
 
@@ -134,14 +130,52 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void AddItem(String Type,ClothingInstance item){
-        if(Type.equals("Shoes")){
-            Shoes.add(item);
-            ShoesText.append("Shoes("+item.Color+ ")\t From :" + item.Store + "\n");
+    private void AddItem(final String ID,final String Type, ClothingInstance item){
+
+        //Format Layout
+        LinearLayout layout = new LinearLayout(this.getActivity());
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        TextView text = new TextView(this.getActivity());
+        Button edit = new Button(this.getActivity());
+        edit.setText("Edit");
+        Button delete = new Button(this.getActivity());
+        delete.setText("X");
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference myRef = database.getReference("users/"+Username+"/Closet/"+Type+"/"+ID);
+                myRef.setValue(null);
+            }
+        });
+
+
+
+        Display display = this.getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        try {
+            display.getRealSize(size);
+        } catch (NoSuchMethodError err) {
+            display.getSize(size);
         }
 
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int)(3*size.x/5),
+                LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        text.setLayoutParams(lp);
 
+        //Set Items
+        if(Type.equals("Shoes")){
+            Shoes.add(item);
+            //text.setText();
+            ShoesItem.addView(layout);
+
+            text.append("Shoes("+item.Color+ ")\t From :" + item.Store);
+            layout.addView(text);
+            layout.addView(edit);
+            layout.addView(delete);
+            //ShoesItem.append( + "\n");
+        }
 
 
     }
