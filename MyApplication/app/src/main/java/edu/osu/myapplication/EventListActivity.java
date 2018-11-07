@@ -38,6 +38,7 @@ public class EventListActivity extends AppCompatActivity {
                 addEvent.putExtra("year", extras.getInt("year"));
                 addEvent.putExtra("month", extras.getInt("month"));
                 addEvent.putExtra("dayOfMonth", extras.getInt("dayOfMonth"));
+                addEvent.putExtra("changeEvent", 0);
                 startActivity(addEvent);
             }
         });

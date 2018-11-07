@@ -128,7 +128,8 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
         if(mDatabase==null) {
             mDatabase = FirebaseDatabase.getInstance().getReference();
         }
-        User newUser = new User(userName, email, userId);
+
+        User newUser = new User(userName, email, userId, mDesignPref.getSelectedItem().toString(), mStorePref.getSelectedItem().toString());
 
         mDatabase.child("users").child(userId).setValue(newUser);
     }

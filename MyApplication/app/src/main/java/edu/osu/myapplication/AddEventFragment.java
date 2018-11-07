@@ -33,6 +33,7 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
     private DatabaseReference database;
     private Map<String, Object> map;
     private SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+    private Bundle extras;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,18 +46,29 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         Log.d(TAG, this + ": onCreateView()");
         View v = inflater.inflate(R.layout.fragment_add_event, container, false);
+        extras = getActivity().getIntent().getExtras();
 
         mEditText = v.findViewById(R.id.add_event_name_edittext);
         mSpinner = v.findViewById(R.id.add_event_category_spinner);
         mTimePicker = v.findViewById(R.id.add_event_timepicker);
 
-        Button addEventBtn = v.findViewById(R.id.add_event_btn);
-        addEventBtn.setOnClickListener(this);
-
         // Setup firebase connection
         mAuth = FirebaseAuth.getInstance();
         Username = mAuth.getCurrentUser().getUid()+"";
         database = FirebaseDatabase.getInstance().getReference().child("users").child(Username).child("Calendar");
+
+        if (extras.getInt("changeEvent") == 1) { // User is changing event, not adding
+            // Populate widgets with current event data
+            String time = extras.getString("changeEventTime");
+            mEditText.setText(extras.getString("changeEventName"));
+            mTimePicker.setHour(Integer.parseInt(time.substring(0,2)));
+            mTimePicker.setMinute(Integer.parseInt(time.substring(2)));
+        }
+
+        Button addEventBtn = v.findViewById(R.id.add_event_btn);
+        Button addEventCancelBtn = v.findViewById(R.id.add_event_cancel_btn);
+        addEventBtn.setOnClickListener(this);
+        addEventCancelBtn.setOnClickListener(this);
 
         map = new HashMap<>();
 
@@ -64,37 +76,54 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_event_btn:
-                Bundle extras = getActivity().getIntent().getExtras();
-                int year = extras.getInt("year");
-                int month = extras.getInt("month");
-                int dayOfMonth = extras.getInt("dayOfMonth");
-                int hour = mTimePicker.getHour();
-                int minute = mTimePicker.getMinute();
+                if (extras.getInt("changeEvent") == 1) {
+                    removeEvent();
+                }
 
-                Calendar calendar = new GregorianCalendar();
-                calendar.set(year, month, dayOfMonth, hour, minute);
-
-                // Create new event
-                Events newEvent = new Events(mEditText.getText().toString(),
-                        mSpinner.getSelectedItem().toString(), calendar);
-
-                // Store event in firebase
-                String date = format1.format(calendar.getTime());
-                map.put("dateKey", date);
-                map.put("eventTitleKey", newEvent.getEventName());
-                map.put("eventCategoryKey", newEvent.getCategoryID());
-                map.put("hourKey", hour);
-                map.put("minuteKey", minute);
-                database.child(date).child(String.format("%02d%02d", hour, minute)).setValue(map);
+                handleAddEvent();
 
                 getActivity().finish();
                 break;
+            case R.id.add_event_cancel_btn:
+                getActivity().finish();
+                break;
         }
+    }
 
+    private void handleAddEvent() {
+        database = FirebaseDatabase.getInstance().getReference().child("users").child(Username).child("Calendar");
+
+        int year = extras.getInt("year");
+        int month = extras.getInt("month");
+        int dayOfMonth = extras.getInt("dayOfMonth");
+        int hour = mTimePicker.getHour();
+        int minute = mTimePicker.getMinute();
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(year, month, dayOfMonth, hour, minute);
+
+        // Create new event
+        Events newEvent = new Events(mEditText.getText().toString(),
+                mSpinner.getSelectedItem().toString(), calendar);
+
+        // Store event in firebase
+        String date = format1.format(calendar.getTime());
+        map.put("dateKey", date);
+        map.put("eventTitleKey", newEvent.getEventName());
+        map.put("eventCategoryKey", newEvent.getCategoryID());
+        map.put("hourKey", String.format("%02d", hour));
+        map.put("minuteKey", String.format("%02d", minute));
+        database.child(date).child(String.format("%02d%02d", hour, minute)).setValue(map);
+    }
+
+    private void removeEvent() {
+        String date = extras.getString("changeEventDate");
+        String time = extras.getString("changeEventTime");
+        database = FirebaseDatabase.getInstance().getReference().child("users").child(Username).child("Calendar").child(date).child(time);
+        database.removeValue();
     }
 }
