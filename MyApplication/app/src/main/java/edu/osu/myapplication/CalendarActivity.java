@@ -3,10 +3,9 @@ package edu.osu.myapplication;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends MainActivity {
     private static final String TAG = CalendarActivity.class.getSimpleName();
 
     @Override

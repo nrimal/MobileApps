@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-public class EventListActivity extends AppCompatActivity {
+public class EventListActivity extends MainActivity {
     private String TAG = EventListActivity.class.getSimpleName();
 
     @Override
