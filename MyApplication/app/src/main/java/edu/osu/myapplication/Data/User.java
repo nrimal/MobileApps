@@ -1,20 +1,26 @@
 package edu.osu.myapplication.Data;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class User {
     String userName, email, userId;
-    int pereferencePk, storePreferencePk;
+    String preferencePk;
+    List<String> storePreferencePk;
     
     public User(String userName, String email){
         this.userName = userName;
         this.email = email;
     }
-    public User(String userName, String email, String userId){
+    public User(String userName, String email, String userId, String designPreference, String storePreference){
         this.userName = userName;
         this.email = email;
         this.userId = userId;
+        this.preferencePk = designPreference;
+        this.storePreferencePk = new LinkedList<>();
+        this.storePreferencePk.add(storePreference);
     }
-    public User(){}
 
     public String getUserName() {
         return userName;

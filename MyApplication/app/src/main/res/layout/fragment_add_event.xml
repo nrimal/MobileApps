@@ -58,5 +58,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_event" />
+
+    <Button
+        android:id="@+id/add_event_cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_event_cancel" />
 </LinearLayout>
 
