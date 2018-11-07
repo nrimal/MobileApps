@@ -215,7 +215,7 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
             display.getSize(size);
         }
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int)(3*size.x/5),
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int)(size.x/2),
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
         text.setLayoutParams(lp);
