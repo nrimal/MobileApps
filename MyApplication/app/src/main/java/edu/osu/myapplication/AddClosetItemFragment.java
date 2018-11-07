@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +31,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
@@ -61,6 +65,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
     DatabaseReference myRef;
     DatabaseReference newItem;
+    StorageReference storageItem;
 
     Bundle Extras;
     String EditID;
@@ -143,10 +148,20 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                 }else{
                     newItem = myRef.child(EditID);
                 }
+                if(selectedImage!=null){
+                    Log.d(TAG,"users/"+Username+"/Closet/"+CType+"/"+newItem.getKey()+"."+getFileExtension(selectedImage));
+                    storageItem = FirebaseStorage.getInstance().getReference("users/"+Username+"/Closet/"+CType+"/"+newItem.getKey()+"."+getFileExtension(selectedImage));
+                    storageItem.putFile(selectedImage);//getActivity().
+                }
 
                 Log.d(TAG,CI.toString());
 
                 newItem.setValue(CI);
+                Log.d(TAG,newItem.toString());
+
+
+
+
                 //newItem.setValue("test");
 
 
@@ -185,4 +200,11 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
             }
         }
     }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cR = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
 }
