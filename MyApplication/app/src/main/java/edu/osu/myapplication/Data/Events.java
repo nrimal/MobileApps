@@ -1,30 +1,27 @@
 package edu.osu.myapplication.Data;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Events {
 
     private String event_id;
     private String eventName;
     private String location;
-    private Date eventDate;
+    private Calendar eventDateTime;
     private String categoryID;
 
-    public Events(){
-    }
-    public Events(String eventName, String categoryID, String event_id){
+    public Events(String eventName, String categoryID, Calendar dateTime){
         this.eventName = eventName;
         this.categoryID = categoryID;
-        this.event_id = event_id;
+        this.eventDateTime = dateTime;
+        this.event_id = dateTime.toString();
     }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
+    public void setEventDate(Calendar eventDate) { this.eventDateTime = eventDate; }
 
     public String getEventName() {
         return eventName;
@@ -41,4 +38,6 @@ public class Events {
     public String getCategoryID() {
         return categoryID;
     }
+
+    public Calendar getEventDate() { return eventDateTime; }
 }
