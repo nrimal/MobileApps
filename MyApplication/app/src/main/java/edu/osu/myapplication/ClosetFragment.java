@@ -221,11 +221,11 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
         text.setLayoutParams(lp);
 
         switch (Type){
-            case "Shoes":ShoesItem.addView(layout);text.append("Shoes("+item.Color+ ")\t From :" + item.Store);break;
-            case "Pants":PantsItem.addView(layout);text.append("Pants("+item.Color+ ")\t From :" + item.Store);break;
-            case "T_Shirt":TShirtItem.addView(layout);text.append("T-Shirt("+item.Color+ ")\t From :" + item.Store);break;
-            case "Jacket":JacketItem.addView(layout);text.append("Jacket("+item.Color+ ")\t From :" + item.Store);break;
-            case "Shirt":ShirtItem.addView(layout);text.append("Shirt("+item.Color+ ")\t From :" + item.Store);break;
+            case "Shoes":ShoesItem.addView(layout);text.append("("+item.Color+ ")\t From :" + item.Store);break;
+            case "Pants":PantsItem.addView(layout);text.append("("+item.Color+ ")\t From :" + item.Store);break;
+            case "T_Shirt":TShirtItem.addView(layout);text.append("("+item.Color+ ")\t From :" + item.Store);break;
+            case "Jacket":JacketItem.addView(layout);text.append("("+item.Color+ ")\t From :" + item.Store);break;
+            case "Shirt":ShirtItem.addView(layout);text.append("("+item.Color+ ")\t From :" + item.Store);break;
         }
 
         layout.addView(text);
