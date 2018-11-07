@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,16 +44,14 @@ public class SuggestionFragment extends Fragment {
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
-    ImageView firstImage, secondImage, thirdImage;
-    List<ImageView> imageContainer;
     private FirebaseDatabase db;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference currRef;
     private Random rand;
     private Clothing clothingItem;
-
-
+    List<Clothing> clothingDBRetreive;
+    private ProgressBar mProgressCircle;
 
     private List<Clothing> clothing;
     private RecyclerView mRecyclerView;
@@ -70,6 +69,7 @@ public class SuggestionFragment extends Fragment {
             currentUser = mAuth.getCurrentUser();
             currRef = db.getReference("users/"+currentUser.getUid()+"/Closet");
         }
+
 
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -89,23 +89,20 @@ public class SuggestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        imageContainer = new ArrayList<>();
+
+
         View v=  inflater.inflate(R.layout.fragment_suggestion, container, false);
 
-//        firstImage = v.findViewById(R.id.first_image_suggestion);
-//        secondImage = v.findViewById(R.id.second_image_suggestion);
-//        thirdImage = v.findViewById(R.id.third_image_suggestion);
-
-//////////////////////
+        mProgressCircle = v.findViewById(R.id.progress_circle);
 
         mRecyclerView = v.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+
+        mRecyclerView.setLayoutManager(layoutManager);
         clothing = new ArrayList<>();
-////////////////////////
-        imageContainer.add(firstImage);
-        imageContainer.add(secondImage);
-        imageContainer.add(thirdImage);
+        clothingDBRetreive = new ArrayList<>();
+
         rand = new Random();
         giveSuggestion();
 
@@ -113,7 +110,7 @@ public class SuggestionFragment extends Fragment {
     }
 
     public void giveSuggestion(){
-
+        clothingDBRetreive.clear();
         for(int i=0; i<3; i++){
 //          getImageData(i);
 
@@ -136,25 +133,20 @@ public class SuggestionFragment extends Fragment {
                         for(DataSnapshot child : dataSnapshot.getChildren()){
                             if(count==randomIndex){
                                 clothingItem = child.getValue(Clothing.class);
+                                clothingDBRetreive.add(clothingItem);
                                 break;
                             }
                             count++;
                         }
-                        Bitmap bitmap = null;
-                        try {
-                            if (clothingItem != null && clothingItem.Image != null && !clothingItem.Image.equals("null")) {
-                                Uri suggestionSelected = Uri.parse(clothingItem.Image);
-                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), suggestionSelected);
-                                imageContainer.get(num).setImageBitmap(bitmap);
-                            }
-                        }catch (IOException e){
-                            Log.d(TAG, "IO exeption when coverting string to image file");
-                        }
+                        mAdapter = new ImageAdapter(getActivity(),clothingDBRetreive);
+                        mRecyclerView.setAdapter(mAdapter);
+                        mProgressCircle.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        Toast.makeText(getActivity(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        mProgressCircle.setVisibility(View.INVISIBLE);
                     }
                 });
                 break;
@@ -168,25 +160,21 @@ public class SuggestionFragment extends Fragment {
                         for(DataSnapshot child : dataSnapshot.getChildren()){
                             if(count==randomIndex){
                                 clothingItem = child.getValue(Clothing.class);
+                                clothingDBRetreive.add(clothingItem);
                                 break;
                             }
                             count++;
                         }
-                        Bitmap bitmap = null;
-                        try {
-                            if (clothingItem != null && clothingItem.Image != null) {
-                                Uri suggestionSelected = Uri.parse(clothingItem.Image);
-                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), suggestionSelected);
-                                imageContainer.get(num).setImageBitmap(bitmap);
-                            }
-                        }catch (IOException e){
-                            Log.d(TAG, "IO exeption when coverting string to image file");
-                        }
+                        mAdapter = new ImageAdapter(getActivity(),clothingDBRetreive);
+                        mRecyclerView.setAdapter(mAdapter);
+                        mProgressCircle.setVisibility(View.INVISIBLE);
+
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        Toast.makeText(getActivity(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        mProgressCircle.setVisibility(View.INVISIBLE);
                     }
                 });
                 break;
@@ -200,26 +188,20 @@ public class SuggestionFragment extends Fragment {
                         for(DataSnapshot child : dataSnapshot.getChildren()){
                             if(count==randomIndex){
                                 clothingItem = child.getValue(Clothing.class);
+                                clothingDBRetreive.add(clothingItem);
                                 break;
                             }
                             count++;
                         }
-
-                        Bitmap bitmap = null;
-                        try {
-                            if (clothingItem != null && clothingItem.Image != null) {
-                                Uri suggestionSelected = Uri.parse(clothingItem.Image);
-                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), suggestionSelected);
-                                imageContainer.get(num).setImageBitmap(bitmap);
-                            }
-                        }catch (IOException e){
-                            Log.d(TAG, "IO exeption when coverting string to image file");
-                        }
+                        mAdapter = new ImageAdapter(getActivity(),clothingDBRetreive);
+                        mRecyclerView.setAdapter(mAdapter);
+                        mProgressCircle.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        Toast.makeText(getActivity(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        mProgressCircle.setVisibility(View.INVISIBLE);
                     }
                 });
                break;

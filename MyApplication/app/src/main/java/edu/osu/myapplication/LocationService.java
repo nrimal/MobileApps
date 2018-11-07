@@ -52,11 +52,13 @@ public class LocationService implements LocationListener {
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
             String bestprovider = locationManager.getBestProvider(criteria,false);
             Location lastknownlocation = locationManager.getLastKnownLocation(bestprovider);
-            longitude = lastknownlocation.getLongitude()+"";
-            latitude = lastknownlocation.getLatitude()+"";
-            longitude = longitude.substring(0,6);
-            latitude = latitude.substring(0,6);
 
+            if(lastknownlocation!=null){
+                longitude = lastknownlocation.getLongitude()+"";
+                latitude = lastknownlocation.getLatitude()+"";
+                longitude = longitude.substring(0,6);
+                latitude = latitude.substring(0,6);
+            }
         }catch (SecurityException e){
             Toast.makeText(context, "Location service not granted", Toast.LENGTH_LONG).show();
         }

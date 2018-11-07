@@ -1,6 +1,7 @@
 package edu.osu.myapplication;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,8 +34,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         Clothing clothCurrent = mClothes.get(i);
+
         Picasso.with(mContext)
-                .load(clothCurrent.Image)
+                .load(Uri.parse(clothCurrent.Image))
+                .placeholder(R.mipmap.ic_launcher)
                 .fit()
                 .centerCrop()
                 .into(imageViewHolder.imageView);
