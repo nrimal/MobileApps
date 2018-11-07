@@ -39,7 +39,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 .load(Uri.parse(clothCurrent.Image))
                 .placeholder(R.mipmap.ic_launcher)
                 .fit()
-                .centerCrop()
                 .into(imageViewHolder.imageView);
     }
 

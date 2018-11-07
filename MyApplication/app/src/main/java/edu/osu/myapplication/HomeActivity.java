@@ -29,51 +29,9 @@ public class HomeActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-//        recyclerView = (RecyclerView)findViewById(R.id.recycler_image_view);
-////        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-////        recyclerView.setAdapter(new PhotoAdapter());
-
-
-
         Log.d(TAG, "onCreate(Bundle) called");
-
     }
 
-//    private class PhotoViewHolder extends RecyclerView.ViewHolder {
-//
-//        private ImageView imageView1, imageView2, imageView3;
-//        public PhotoViewHolder(View view) {
-//            super(view);
-//            imageView1 = (ImageView)view.findViewById(R.id.first_image_suggestion);
-//            imageView2 = (ImageView)view.findViewById(R.id.second_image_suggestion);
-//            imageView3 = (ImageView)view.findViewById(R.id.third_image_suggestion);
-//        }
-//
-//    }
-//    // Photo adapter
-//    private class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
-//        @Override
-//        public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            return new PhotoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo, parent, false));
-//        }
-//        @Override
-//        public void onBindViewHolder(PhotoViewHolder holder, int position) {
-//            ContactsContract.CommonDataKinds.Photo photo = photos.get(position);
-//            // Attempt to load image from cache
-//            Bitmap thumbnail = photoThumbnails.get(photo.getId());
-//            if (thumbnail == null) {
-//                // Image was not found in cache; load it from the server
-//            } else {
-//                holder.imageView.setImageBitmap(thumbnail);
-//            }
-//            holder.textView.setText(photo.getTitle());
-//        }
-//        @Override
-//        public int getItemCount() {
-//            return (photos == null) ? 0 : photos.size();
-//        }
-//    }
 
 
 }

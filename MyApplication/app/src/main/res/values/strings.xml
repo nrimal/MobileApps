@@ -55,6 +55,8 @@
     </string-array>
 
     <string-array name="closet_item_color_array">
+        <item>Light Brown</item>
+        <item>Dark Brown</item>
         <item>Red</item>
         <item>Pink</item>
         <item>Orange</item>
@@ -119,7 +121,7 @@
 
     <!--Menu-Page-->
     <string name="home">Home</string>
-    <string name="calender">Calender</string>
+    <string name="calender">Calendar</string>
     <string name="closet">Closet</string>
     <string name="account">Account</string>
 

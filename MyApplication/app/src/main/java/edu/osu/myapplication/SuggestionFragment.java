@@ -112,7 +112,7 @@ public class SuggestionFragment extends Fragment {
     public void giveSuggestion(){
         clothingDBRetreive.clear();
         for(int i=0; i<3; i++){
-//          getImageData(i);
+          getImageData(i);
 
         }
         Toast val = Toast.makeText(getActivity(), "Device shook!", Toast.LENGTH_LONG);
@@ -123,23 +123,25 @@ public class SuggestionFragment extends Fragment {
 
         switch (num){
             case 0: //get Shirt
-                currRef.child("Shoes").addValueEventListener(new ValueEventListener() {
+                currRef.child("Shirt").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.hasChildren()){
+                            int randomIndex = rand.nextInt((int)dataSnapshot.getChildrenCount());
+                            int count=0;
 
-                        int randomIndex = rand.nextInt((int)dataSnapshot.getChildrenCount());
-                        int count=0;
-
-                        for(DataSnapshot child : dataSnapshot.getChildren()){
-                            if(count==randomIndex){
-                                clothingItem = child.getValue(Clothing.class);
-                                clothingDBRetreive.add(clothingItem);
-                                break;
+                            for(DataSnapshot child : dataSnapshot.getChildren()){
+                                if(count==randomIndex){
+                                    clothingItem = child.getValue(Clothing.class);
+                                    clothingDBRetreive.add(clothingItem);
+                                    break;
+                                }
+                                count++;
                             }
-                            count++;
+                            mAdapter = new ImageAdapter(getActivity(),clothingDBRetreive);
+                            mRecyclerView.setAdapter(mAdapter);
                         }
-                        mAdapter = new ImageAdapter(getActivity(),clothingDBRetreive);
-                        mRecyclerView.setAdapter(mAdapter);
+
                         mProgressCircle.setVisibility(View.INVISIBLE);
                     }
 
@@ -151,22 +153,24 @@ public class SuggestionFragment extends Fragment {
                 });
                 break;
             case 1://get Pants
-                currRef.child("Shoes").addValueEventListener(new ValueEventListener() {
+                currRef.child("Pants").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        int randomIndex = rand.nextInt((int)dataSnapshot.getChildrenCount());
-                        int count=0;
+                        if(dataSnapshot.hasChildren()) {
+                            int randomIndex = rand.nextInt((int) dataSnapshot.getChildrenCount());
+                            int count = 0;
 
-                        for(DataSnapshot child : dataSnapshot.getChildren()){
-                            if(count==randomIndex){
-                                clothingItem = child.getValue(Clothing.class);
-                                clothingDBRetreive.add(clothingItem);
-                                break;
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                if (count == randomIndex) {
+                                    clothingItem = child.getValue(Clothing.class);
+                                    clothingDBRetreive.add(clothingItem);
+                                    break;
+                                }
+                                count++;
                             }
-                            count++;
+                            mAdapter = new ImageAdapter(getActivity(), clothingDBRetreive);
+                            mRecyclerView.setAdapter(mAdapter);
                         }
-                        mAdapter = new ImageAdapter(getActivity(),clothingDBRetreive);
-                        mRecyclerView.setAdapter(mAdapter);
                         mProgressCircle.setVisibility(View.INVISIBLE);
 
                     }
@@ -182,19 +186,21 @@ public class SuggestionFragment extends Fragment {
                 currRef.child("Shoes").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        int randomIndex = rand.nextInt((int)dataSnapshot.getChildrenCount());
-                        int count=0;
+                        if(dataSnapshot.hasChildren()) {
+                            int randomIndex = rand.nextInt((int) dataSnapshot.getChildrenCount());
+                            int count = 0;
 
-                        for(DataSnapshot child : dataSnapshot.getChildren()){
-                            if(count==randomIndex){
-                                clothingItem = child.getValue(Clothing.class);
-                                clothingDBRetreive.add(clothingItem);
-                                break;
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                if (count == randomIndex) {
+                                    clothingItem = child.getValue(Clothing.class);
+                                    clothingDBRetreive.add(clothingItem);
+                                    break;
+                                }
+                                count++;
                             }
-                            count++;
+                            mAdapter = new ImageAdapter(getActivity(), clothingDBRetreive);
+                            mRecyclerView.setAdapter(mAdapter);
                         }
-                        mAdapter = new ImageAdapter(getActivity(),clothingDBRetreive);
-                        mRecyclerView.setAdapter(mAdapter);
                         mProgressCircle.setVisibility(View.INVISIBLE);
                     }
 
