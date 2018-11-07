@@ -91,9 +91,10 @@ public class SuggestionFragment extends Fragment {
         // Inflate the layout for this fragment
         imageContainer = new ArrayList<>();
         View v=  inflater.inflate(R.layout.fragment_suggestion, container, false);
-        firstImage = v.findViewById(R.id.first_image_suggestion);
-        secondImage = v.findViewById(R.id.second_image_suggestion);
-        thirdImage = v.findViewById(R.id.third_image_suggestion);
+
+//        firstImage = v.findViewById(R.id.first_image_suggestion);
+//        secondImage = v.findViewById(R.id.second_image_suggestion);
+//        thirdImage = v.findViewById(R.id.third_image_suggestion);
 
 //////////////////////
 
