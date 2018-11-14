@@ -1,9 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <fragment
+        android:name="edu.osu.myapplication.WeatherFragment"
+        android:id="@+id/weather_fragment"
+        android:layout_height="0px"
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        />
+
+    <fragment
+        android:name="edu.osu.myapplication.SuggestionFragment"
+        android:id="@+id/suggestion_fragment"
+        android:layout_height="0px"
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        />
+
+</LinearLayout>

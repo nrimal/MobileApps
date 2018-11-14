@@ -13,6 +13,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="PopupTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColorPrimary">#9E9E9E</item>
+        <item name="android:background">#fffcfff6</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

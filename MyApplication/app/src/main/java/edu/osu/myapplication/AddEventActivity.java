@@ -1,25 +1,26 @@
 package edu.osu.myapplication;
 
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 
+public class AddEventActivity extends AppCompatActivity {
+    private String TAG = AddEventActivity.class.getSimpleName();
 
-public class ClosetActivity extends MainActivity {
-
-    private static final String TAG = "Closet_Activity";
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_closet);
+        setContentView(R.layout.activity_add_event);
+
         FragmentManager manager = getSupportFragmentManager();
-        Fragment fragment = manager.findFragmentById(R.id.activity_closet_fragment);
-        if(fragment==null) {
-            fragment = new ClosetFragment();
+        Fragment fragment = manager.findFragmentById(R.id.add_event);
+
+        if (fragment == null) {
+            fragment = new AddEventFragment();
             manager.beginTransaction()
-                    .add(R.id.activity_closet_fragment, fragment)
+                    .add(R.id.add_event, fragment)
                     .commit();
         }
         Log.d(TAG, "onCreate(Bundle) called");
@@ -54,5 +55,4 @@ public class ClosetActivity extends MainActivity {
         super.onDestroy();
         Log.d(TAG,"onDestroy() called");
     }
-
 }

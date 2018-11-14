@@ -8,7 +8,7 @@ import android.util.Log;
 /**
  * A login screen that offers login via username/password.
  */
-public class LoginActivity extends HomeActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
     /**
