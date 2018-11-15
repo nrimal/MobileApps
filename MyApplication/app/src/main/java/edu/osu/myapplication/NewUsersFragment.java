@@ -109,8 +109,9 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             writeNewUser(email,username, user.getUid());
-                            Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
-                            startActivity(homeIntent);
+                            Toast.makeText(getActivity(), "Please check your email for verification link for login", Toast.LENGTH_LONG).show();
+                            Intent loginActivity = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(loginActivity);
                             updateUI(user);
 
                         } else {
