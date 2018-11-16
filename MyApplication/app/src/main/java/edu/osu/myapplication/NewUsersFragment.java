@@ -1,6 +1,7 @@
 package edu.osu.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -108,8 +109,10 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             writeNewUser(email,username, user.getUid());
-
+                            Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
+                            startActivity(homeIntent);
                             updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -125,7 +128,8 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
         if(mDatabase==null) {
             mDatabase = FirebaseDatabase.getInstance().getReference();
         }
-        User newUser = new User(userName, email, userId);
+
+        User newUser = new User(userName, email, userId, mDesignPref.getSelectedItem().toString(), mStorePref.getSelectedItem().toString());
 
         mDatabase.child("users").child(userId).setValue(newUser);
     }
