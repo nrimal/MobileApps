@@ -57,7 +57,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
     private final String TAG = getClass().getSimpleName();
 
-    private Spinner spinner1, spinner2,spinner3;
+    private Spinner spinner1, spinner2,spinner3,spinnerSubType;
     private Button btnSubmit,addPhoto;
     private ImageView picture;
     private Uri selectedImageUri;
@@ -81,6 +81,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
 
         spinner1 = v.findViewById(R.id.spinner1);
+        spinnerSubType = v.findViewById(R.id.spinnerSubType);
         spinner2 =  v.findViewById(R.id.spinner2);
         spinner3 =  v.findViewById(R.id.spinner3);
         btnSubmit = v.findViewById(R.id.btnSubmit);
@@ -184,7 +185,9 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                         Clothing cothUpload = new Clothing(
                                         spinner2.getSelectedItem().toString(),
                                         spinner3.getSelectedItem().toString(),
-                                downloadUrl+ ""
+                                downloadUrl+ "",
+                                spinnerSubType.getSelectedItem().toString()
+
                                 );
                         String uploadid = myRef.child(CType).push().getKey();
                         myRef.child(CType).child(uploadid).setValue(cothUpload);
