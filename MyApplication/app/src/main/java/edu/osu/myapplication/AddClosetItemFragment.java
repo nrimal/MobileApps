@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -53,11 +54,11 @@ import edu.osu.myapplication.Data.Clothing;
 import static java.util.stream.Collectors.joining;
 
 
-public class AddClosetItemFragment extends Fragment implements View.OnClickListener {
+public class AddClosetItemFragment extends Fragment implements View.OnClickListener{
 
     private final String TAG = getClass().getSimpleName();
 
-    private Spinner spinner1, spinner2,spinner3;
+    private Spinner spinner1, spinner2,spinner3,spinnerSubType;
     private Button btnSubmit,addPhoto;
     private ImageView picture;
     private Uri selectedImageUri;
@@ -81,6 +82,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
 
         spinner1 = v.findViewById(R.id.spinner1);
+        spinnerSubType = v.findViewById(R.id.spinnerSubType);
         spinner2 =  v.findViewById(R.id.spinner2);
         spinner3 =  v.findViewById(R.id.spinner3);
         btnSubmit = v.findViewById(R.id.btnSubmit);
@@ -89,6 +91,36 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
         btnSubmit.setOnClickListener(this);
         addPhoto.setOnClickListener(this);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                ArrayAdapter<CharSequence> adapter;
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                switch(selectedItem){
+                    case "Shoes" :
+                        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subTypeShoes_array, android.R.layout.simple_spinner_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerSubType.setAdapter(adapter);
+                        break;
+                    case "Pants" :
+                        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subTypePants_array, android.R.layout.simple_spinner_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerSubType.setAdapter(adapter);
+                        break;
+                    default:
+                        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subType_array, android.R.layout.simple_spinner_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerSubType.setAdapter(adapter);
+                        break;
+                }
+            } // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
 
         mAuth = FirebaseAuth.getInstance();
         mUsername = mAuth.getCurrentUser().getUid();
@@ -118,7 +150,6 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         CType = spinner1.getSelectedItem().toString().replace('-','_');
-
         switch(v.getId()){
             case R.id.btnSubmit:
                 //TODO: .... add category...closet subfolder
@@ -184,7 +215,9 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                         Clothing cothUpload = new Clothing(
                                         spinner2.getSelectedItem().toString(),
                                         spinner3.getSelectedItem().toString(),
-                                downloadUrl+ ""
+                                downloadUrl+ "",
+                                spinnerSubType.getSelectedItem().toString()
+
                                 );
                         String uploadid = myRef.child(CType).push().getKey();
                         myRef.child(CType).child(uploadid).setValue(cothUpload);
