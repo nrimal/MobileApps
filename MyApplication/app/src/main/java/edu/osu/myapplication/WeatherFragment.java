@@ -25,6 +25,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,6 +45,11 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private LocationService locationService;
     private View view;
+    private static DateTime lastFetched;
+    public static int temperatureValue;
+    public static boolean hasRained;
+    public static boolean hasSnowed;
+
     public WeatherFragment() {
         // Required empty public constructor
     }
@@ -154,9 +161,18 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
 
 
     public void taskLoadUp(String query, View v) {
+
         if (Function.isNetworkAvailable(getActivity().getApplicationContext())) {
-            DownloadWeather task = new DownloadWeather(getActivity(), v);
-            task.execute(query);
+            DateTime currDate = new DateTime();
+            if(lastFetched==null){
+                lastFetched = new DateTime();
+            }
+            Interval interval = new Interval(lastFetched,currDate);
+            if(interval.toDuration().getStandardMinutes() > 30){
+                DownloadWeather task = new DownloadWeather(getActivity(), v);
+                task.execute(query);
+                lastFetched = new DateTime();
+            }
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
@@ -195,6 +211,23 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
                 if (json != null) {
                     JSONObject details = json.getJSONArray("weather").getJSONObject(0);
                     JSONObject main = json.getJSONObject("main");
+                    JSONObject snow = json.getJSONObject("rain");
+                    JSONObject rain = json.getJSONObject("snow");
+                    String snowValue = snow.getString("3h");
+                    String rainValue = rain.getString("3h");
+
+                    if(snowValue.equals("0") || snowValue.equals("")){
+                        hasSnowed = false;
+                    }else{
+                        hasSnowed = true;
+                    }
+
+                    if(rainValue.equals("0") || rainValue.equals("")){
+                        hasRained = false;
+                    }else{
+                        hasRained = true;
+                    }
+
                     DateFormat df = DateFormat.getDateTimeInstance();
 
                     loader = getView().findViewById(R.id.loader);
