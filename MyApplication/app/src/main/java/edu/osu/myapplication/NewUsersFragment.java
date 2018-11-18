@@ -132,6 +132,7 @@ public class NewUsersFragment extends Fragment implements View.OnClickListener {
         User newUser = new User(userName, email, userId, mDesignPref.getSelectedItem().toString(), mStorePref.getSelectedItem().toString());
 
         mDatabase.child("users").child(userId).setValue(newUser);
+        mDatabase.child("users").child(userId).child("tempPref").setValue(3);
     }
 
     private void updateUI(FirebaseUser user) {
