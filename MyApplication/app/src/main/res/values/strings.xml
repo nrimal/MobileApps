@@ -59,6 +59,22 @@
         <item>None</item>
     </string-array>
 
+    <string-array name="closet_item_subTypePants_array">
+        <item>Athletic Shorts</item>
+        <item>Chino Shorts</item>
+        <item>Jeans</item>
+        <item>Dress Pants</item>
+        <item>Chino Pants</item>
+        <item>Athletic Pants</item>
+    </string-array>
+
+    <string-array name="closet_item_subTypeShoes_array">
+        <item>Sandals</item>
+        <item>Dress Shoes</item>
+        <item>Athletic Shoes</item>
+        <item>Boots</item>
+    </string-array>
+
     <string-array name="closet_item_color_array">
         <item>Light Brown</item>
         <item>Dark Brown</item>
