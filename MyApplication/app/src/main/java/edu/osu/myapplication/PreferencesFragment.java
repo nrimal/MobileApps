@@ -99,13 +99,26 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                 Store = new HashSet<String>();
             }
         });
+        myRef = database.getReference("users/"+UUID+"/tempPref");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Temp =  mSharedPreferences.getInt("tempPref",3);
+            }
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Store = new HashSet<String>();
+            }
+        });
 
 
+        //Temp =  mSharedPreferences.getInt("tempPref",3);
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         Email = mSharedPreferences.getString("email",mAuth.getCurrentUser().getEmail());
         ((EditTextPreference) findPreference("email")).setText(Email);
         Password = mSharedPreferences.getString("password","");
-        Temp =  mSharedPreferences.getInt("tempPref",3);
+
 
         mSharedPreferences.edit().apply();
         mSharedPreferences.edit().commit();
@@ -133,21 +146,38 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
     @Override
     public void onPause(){
         super.onPause();
+        CommitChanges();
+    }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        CommitChanges();
+    }
+
+    public void CommitChanges(){
         //display current
+
+
+        Store = mSharedPreferences.getStringSet("storePrefs",Store);
+        Design = mSharedPreferences.getString("designPrefs",Design);
+        Temp =  mSharedPreferences.getInt("tempPref",3);
+        Email = mSharedPreferences.getString("email",mAuth.getCurrentUser().getEmail());
+        Password = mSharedPreferences.getString("password","");
 
         DatabaseReference myRef = database.getReference("users/"+UUID);
         //Log.d(TAG,Email + " ==================================================================");
         if(Username!=null && !Username.equals("")){myRef.child("userName").setValue(Username);}
         if(Email!=null && !Email.equals("")){myRef.child("email").setValue(Email);
-        mAuth.getCurrentUser().updateEmail(Email);}
+            mAuth.getCurrentUser().updateEmail(Email);}
         myRef.child("pereferencePk").setValue(Design);
         List<String> StorePref =new ArrayList<>();
         if(Store!=null){StorePref.addAll(Store);}
         myRef.child("storePreferencePk").setValue(StorePref);
+        myRef.child("tempPref").setValue(Temp);
         if(Password!=null &&!Password.equals("")){mAuth.getCurrentUser().updatePassword(Password);}
         //Base64.encode();
-               // Base64.decode();
-
+        // Base64.decode();
     }
+
 }
