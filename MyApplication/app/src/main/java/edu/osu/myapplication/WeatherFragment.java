@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     public TextView cityField, detailsField, currentTemperatureField, humidity_field, pressure_field, weatherIcon, updatedField;
     public ProgressBar loader;
     public Typeface weatherFont;
+    private String TAG = getClass().getSimpleName();
     public String city = "Columbus,US";
     public String OPEN_WEATHER_MAP_API = "2d19f5e9eb5f8e1698ce84001ccbeddf";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -49,20 +51,30 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     public static int temperatureValue;
     public static boolean hasRained;
     public static boolean hasSnowed;
+    private Bundle savedBundle;
+
+
+    /*
+
+    private static final String city_field_bundle_id = "city_field";
+    private static final String detail_field_bundle_id = "detail_field";
+    private static final String current_temperature_bundle_id = "current_temp_field";
+    private static final String humidity_field_bundle_id = "humidity_filed";
+    private static final String pressure_field_bundle_id = "pressure_field";
+    private static final String updated_field_bundle_id = "update_field";
+    private static final String weather_icon_bundle_id = "weather_icon";
+
+     */
+    private static String city_field_bundle_id;
+    private static String detail_field_bundle_id;
+    private static String current_temperature_bundle_id;
+    private static String humidity_field_bundle_id;
+    private static String pressure_field_bundle_id;
+    private static String updated_field_bundle_id;
+    private static String weather_icon_bundle_id;
 
     public WeatherFragment() {
         // Required empty public constructor
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-//    String requiredPermission = "android.permission.ACCESS_FINE_LOCATION";
-//    String requiredPermission2 = "android.permission.ACCESS_COARSE_LOCATION";
-//    int hasLocationPerm = getActivity().checkCallingOrSelfPermission(requiredPermission);
-//    int hasLocationPerm2 = getActivity().checkCallingOrSelfPermission(requiredPermission2);
     }
 
     @Override
@@ -82,10 +94,90 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
         weatherIcon.setTypeface(weatherFont);
         checkLocationPermission();
 
+
+        Log.d(TAG,"onCreateView() called");
         return inflater.inflate(R.layout.fragment_weather, container, false);
     }
 
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG,"onActivityCreated() called");
+//        if (savedInstanceState != null) {
+//            cityField.setText(savedInstanceState.getString(city_field_bundle_id));
+//            detailsField.setText(savedInstanceState.getString(detail_field_bundle_id));
+//            currentTemperatureField.setText(savedInstanceState.getString(current_temperature_bundle_id));
+//            humidity_field.setText(savedInstanceState.getString(humidity_field_bundle_id));
+//            pressure_field.setText(savedInstanceState.getString(pressure_field_bundle_id));
+//            updatedField.setText(savedInstanceState.getString(updated_field_bundle_id));
+//            weatherIcon.setText(savedInstanceState.getString(weather_icon_bundle_id));
+//        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+//        outState.putString(city_field_bundle_id,cityField.getText().toString());
+//        outState.putString(detail_field_bundle_id, detailsField.getText().toString());
+//        outState.putString(current_temperature_bundle_id, currentTemperatureField.getText().toString());
+//        outState.putString(humidity_field_bundle_id, humidity_field.getText().toString());
+//        outState.putString(pressure_field_bundle_id, pressure_field.getText().toString());
+//        outState.putString(updated_field_bundle_id, updatedField.getText().toString());
+//        outState.putString(weather_icon_bundle_id, weatherIcon.getText().toString());
+
+        city_field_bundle_id = cityField.getText().toString();
+        detail_field_bundle_id = detailsField.getText().toString();
+        current_temperature_bundle_id =  currentTemperatureField.getText().toString();
+        humidity_field_bundle_id =  humidity_field.getText().toString();
+        pressure_field_bundle_id =  pressure_field.getText().toString();
+        updated_field_bundle_id = updatedField.getText().toString();
+
+        Log.d(TAG,"onSaveInstanceState() called");
+        //Save the fragment's state here
+    }
+
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setRetainInstance(true);
+//        Log.d(TAG,"onCreate() called");
+//    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(lastFetched==null){
+            checkLocationPermission();
+        }else{
+            DateTime currDate = new DateTime();
+            Interval interval = new Interval(lastFetched,currDate);
+            if (interval.toDuration().getStandardMinutes() > 30) {
+                checkLocationPermission();
+            }
+        }
+
+        Log.d(TAG,"onResume() called");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG,"onPause() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG,"onStop() called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG,"onDestroy() called");
+    }
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getActivity(),
@@ -163,17 +255,10 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     public void taskLoadUp(String query, View v) {
 
         if (Function.isNetworkAvailable(getActivity().getApplicationContext())) {
-            DateTime currDate = new DateTime();
-            if(lastFetched==null){
-                lastFetched = new DateTime();
-            }
-            Interval interval = new Interval(lastFetched,currDate);
-            if(interval.toDuration().getStandardMinutes() > 30){
                 DownloadWeather task = new DownloadWeather(getActivity(), v);
                 task.execute(query);
                 lastFetched = new DateTime();
-            }
-        } else {
+            }else {
             Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
     }
@@ -188,7 +273,6 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           loader.setVisibility(View.VISIBLE);
 
         }
         protected String doInBackground(String...args) {
@@ -209,23 +293,26 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
             try {
                 JSONObject json = new JSONObject(xml);
                 if (json != null) {
+
                     JSONObject details = json.getJSONArray("weather").getJSONObject(0);
                     JSONObject main = json.getJSONObject("main");
-                    JSONObject snow = json.getJSONObject("rain");
-                    JSONObject rain = json.getJSONObject("snow");
-                    String snowValue = snow.getString("3h");
-                    String rainValue = rain.getString("3h");
-
-                    if(snowValue.equals("0") || snowValue.equals("")){
-                        hasSnowed = false;
-                    }else{
-                        hasSnowed = true;
+                    JSONObject snow = json.has("rain")? json.getJSONObject("rain") : null;
+                    JSONObject rain = json.has("rain")? json.getJSONObject("snow") : null;
+                    if(snow!=null){
+                        String snowValue = snow.getString("3h");
+                        if(snowValue.equals("0") || snowValue.equals("")){
+                            hasSnowed = false;
+                        }else{
+                            hasSnowed = true;
+                        }
                     }
-
-                    if(rainValue.equals("0") || rainValue.equals("")){
-                        hasRained = false;
-                    }else{
-                        hasRained = true;
+                    if(rain!=null) {
+                        String rainValue = rain.getString("3h");
+                        if(rainValue.equals("0") || rainValue.equals("")){
+                            hasRained = false;
+                        }else{
+                            hasRained = true;
+                        }
                     }
 
                     DateFormat df = DateFormat.getDateTimeInstance();
@@ -245,14 +332,16 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
                     cityField.setText(json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country"));
                     detailsField.setText(details.getString("description").toUpperCase(Locale.US));
                     currentTemperatureField.setText(String.format("%.2f", main.getDouble("temp")) + "°");
+                    temperatureValue = (int) main.getDouble("temp");
                     humidity_field.setText("Humidity: " + main.getString("humidity") + "%");
                     pressure_field.setText("Pressure: " + main.getString("pressure") + " hPa");
                     updatedField.setText(df.format(new Date(json.getLong("dt") * 1000)));
-                    weatherIcon.setText(Html.fromHtml(Function.setWeatherIcon(details.getInt("id"),
+                    weather_icon_bundle_id = Function.setWeatherIcon(details.getInt("id"),
                             json.getJSONObject("sys").getLong("sunrise") * 1000,
-                            json.getJSONObject("sys").getLong("sunset") * 1000)));
+                            json.getJSONObject("sys").getLong("sunset") * 1000);
+                    weatherIcon.setText(Html.fromHtml(weather_icon_bundle_id));
 
-                   loader.setVisibility(View.GONE);
+                   loader.setVisibility(View.INVISIBLE);
                 }
             } catch (JSONException e) {
                 Toast.makeText(getActivity().getApplicationContext(), "Error, Check City", Toast.LENGTH_SHORT).show();

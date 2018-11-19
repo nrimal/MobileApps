@@ -90,6 +90,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Store = new HashSet<String>();
+                if(dataSnapshot.getValue()==null){return;}
                 Store.addAll((List<String>)dataSnapshot.getValue());
                 Store = mSharedPreferences.getStringSet("storePrefs",Store);
                 ((MultiSelectListPreference) findPreference("storePrefs")).setValues(Store);
