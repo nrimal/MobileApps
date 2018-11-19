@@ -180,7 +180,9 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
     private void AddItem(final String ID,final String Type, Clothing item){
 
         //Format Layout
-        LinearLayout layout = new LinearLayout(this.getActivity());
+        LinearLayout layout = new LinearLayout(
+                this.getActivity()
+        );
         layout.setOrientation(LinearLayout.HORIZONTAL);
         TextView text = new TextView(this.getActivity());
         Button edit = new Button(this.getActivity());
@@ -203,7 +205,6 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
                 ClosetIntent.putExtra("EditID", ID);
                 ClosetIntent.putExtra("EditType", Type);
                 startActivity(ClosetIntent);
-
             }
         });
 
