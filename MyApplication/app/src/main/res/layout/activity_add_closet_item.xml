@@ -163,7 +163,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_item_picture"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
 
             <Button
                 android:id="@+id/btnSubmit"
@@ -172,7 +174,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="@string/closet_item_add"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
