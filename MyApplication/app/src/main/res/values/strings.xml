@@ -43,6 +43,7 @@
     <string name="closet_item_picture">Select Picture</string>
     <string name="closet_item_add">Add</string>
     <string name="closet_item_type_prompt">Type</string>
+    <string name="closet_item_subType_prompt">Sub-Type</string>
     <string name="closet_item_color_prompt">Color</string>
     <string name="closet_item_store_prompt">Store Bought</string>
 
@@ -52,6 +53,26 @@
         <item>T-Shirt</item>
         <item>Jacket</item>
         <item>Shirt</item>
+    </string-array>
+
+    <string-array name="closet_item_subType_array">
+        <item>None</item>
+    </string-array>
+
+    <string-array name="closet_item_subTypePants_array">
+        <item>Athletic Shorts</item>
+        <item>Chino Shorts</item>
+        <item>Jeans</item>
+        <item>Dress Pants</item>
+        <item>Chino Pants</item>
+        <item>Athletic Pants</item>
+    </string-array>
+
+    <string-array name="closet_item_subTypeShoes_array">
+        <item>Sandals</item>
+        <item>Dress Shoes</item>
+        <item>Athletic Shoes</item>
+        <item>Boots</item>
     </string-array>
 
     <string-array name="closet_item_color_array">

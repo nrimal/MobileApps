@@ -215,10 +215,17 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
             display.getSize(size);
         }
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int)(size.x/2),
+        float Size = size.x *.9f;//Margin
+
+        LinearLayout.LayoutParams lp_text = new LinearLayout.LayoutParams((int)(4*Size/6),
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        text.setLayoutParams(lp);
+        LinearLayout.LayoutParams lp_button = new LinearLayout.LayoutParams((int)(Size/6),
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        text.setLayoutParams(lp_text);
+        edit.setLayoutParams(lp_button);
+        delete.setLayoutParams(lp_button);
 
         switch (Type){
             case "Shoes":ShoesItem.addView(layout);text.append("("+item.Color+ ")\t From :" + item.Store);break;
