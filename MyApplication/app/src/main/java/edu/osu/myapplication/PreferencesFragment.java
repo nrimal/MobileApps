@@ -1,8 +1,11 @@
 package edu.osu.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.support.annotation.NonNull;
 import android.support.v14.preference.MultiSelectListPreference;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +17,10 @@ import android.support.v7.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseError;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -123,6 +129,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         mSharedPreferences.edit().apply();
         mSharedPreferences.edit().commit();
 
+
     }
 
     @Override
@@ -168,8 +175,23 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         DatabaseReference myRef = database.getReference("users/"+UUID);
         //Log.d(TAG,Email + " ==================================================================");
         if(Username!=null && !Username.equals("")){myRef.child("userName").setValue(Username);}
-        if(Email!=null && !Email.equals("")){myRef.child("email").setValue(Email);
-            mAuth.getCurrentUser().updateEmail(Email);}
+        if(Email!=null && !Email.equals("")){
+            myRef.child("email").setValue(Email);
+            mAuth.getCurrentUser().updateEmail(Email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User email address updated.");
+                    }else{
+                        Log.d(TAG, "User email address update FAILED : "+task.getException());
+                        mAuth.signOut();
+                        Intent LoginIntent = new Intent(getActivity(),LoginActivity.class);
+                        startActivity(LoginIntent);
+                    }
+                }
+            });
+            Log.d(TAG,"New email :" +Email);
+        }
         myRef.child("pereferencePk").setValue(Design);
         List<String> StorePref =new ArrayList<>();
         if(Store!=null){StorePref.addAll(Store);}
