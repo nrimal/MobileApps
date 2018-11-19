@@ -172,12 +172,12 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                 Log.d(TAG,"image : "+ selectedImageUri);
 
                 if(EditID!=null){CType = Extras.getString("EditType");}
-                if(selectedImageUri!=null){
+                if(selectedImageUri!=null || EditID!=null){
                     uploadFile();
                     getActivity().finish();
-                }else{//IF no image
-                    Intent ImageGet = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                    startActivityForResult(ImageGet, GET_FROM_GALLERY);
+                }else {//IF no image
+                    //toast instead?
+                    GetCameraAndPhotos();
                 }
 
                 Log.d(TAG,"Users/"+mUsername+"/Closet/"+CType);
@@ -187,11 +187,23 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
             case R.id.btnAddPicture:
                 Log.d(TAG,"button clicked "+v);
                 //TODO: Camera Intent
-                Intent ImageGet = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(ImageGet, GET_FROM_GALLERY);
+                GetCameraAndPhotos();
 
                 break;
         }
+    }
+
+    private void GetCameraAndPhotos(){
+
+        Intent ImageGet = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(ImageGet, GET_FROM_GALLERY);
+
+//Take photo
+        //Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+        //    startActivityForResult(takePictureIntent, 1);
+       // }
+
     }
 
     @Override
