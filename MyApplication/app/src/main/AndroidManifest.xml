@@ -30,20 +30,30 @@
 
         <activity
             android:name=".ClosetActivity"
+            android:launchMode="singleInstance"
             />
         <activity
             android:name=".PreferencesActivity"
+            android:launchMode="singleInstance"
             />
         <activity
             android:name=".AddClosetItemActivity"
+            android:launchMode="singleInstance"
             android:label="@string/title_activity_add__closet__item_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NewUsersActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".CalendarActivity" />
-        <activity android:name=".EventListActivity" />
-        <activity android:name=".AddEventActivity" />
+        <activity android:name=".HomeActivity"
+            android:launchMode="singleInstance"
+            />
+        <activity android:name=".CalendarActivity"
+            android:launchMode="singleInstance"
+            />
+        <activity android:name=".EventListActivity"
+            android:launchMode="singleInstance"
+            />
+        <activity android:name=".AddEventActivity"
+            android:launchMode="singleInstance"/>
     </application>
 
 </manifest>

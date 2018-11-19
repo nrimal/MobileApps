@@ -34,7 +34,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         Clothing clothCurrent = mClothes.get(i);
-
+//
         Picasso.with(mContext)
                 .load(Uri.parse(clothCurrent.Image))
                 .placeholder(R.mipmap.ic_launcher)
