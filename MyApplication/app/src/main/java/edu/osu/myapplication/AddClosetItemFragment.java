@@ -40,6 +40,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -62,6 +63,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
     private Button btnSubmit,addPhoto;
     private ImageView picture;
     private Uri selectedImageUri;
+    private Uri downloadUrl;
 
     private FirebaseAuth mAuth;
     private String mUsername;
@@ -91,29 +93,14 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 
         btnSubmit.setOnClickListener(this);
         addPhoto.setOnClickListener(this);
+
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                ArrayAdapter<CharSequence> adapter;
+
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                switch(selectedItem){
-                    case "Shoes" :
-                        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subTypeShoes_array, android.R.layout.simple_spinner_item);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerSubType.setAdapter(adapter);
-                        break;
-                    case "Pants" :
-                        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subTypePants_array, android.R.layout.simple_spinner_item);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerSubType.setAdapter(adapter);
-                        break;
-                    default:
-                        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subType_array, android.R.layout.simple_spinner_item);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerSubType.setAdapter(adapter);
-                        break;
-                }
+                setSpinner(selectedItem);
             } // to close the onItemSelected
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -135,6 +122,32 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                   EditID = Extras.getString("EditID");
                   btnSubmit.setText("Update");
                   spinner1.setVisibility(View.GONE);
+                  CType = Extras.getString("EditType");
+                  setSpinner(CType);
+                  myRef.child(CType).child(EditID).addValueEventListener(new ValueEventListener() {
+                      @Override
+                      public void onDataChange(DataSnapshot dataSnapshot) {
+                          Clothing clothCurrent = dataSnapshot.getValue(Clothing.class);
+
+                          spinnerSubType.setSelection(((ArrayAdapter)spinnerSubType.getAdapter()).getPosition(clothCurrent.SubType));
+                          spinner2.setSelection(((ArrayAdapter)spinner2.getAdapter()).getPosition(clothCurrent.Store));
+                          spinner3.setSelection(((ArrayAdapter)spinner3.getAdapter()).getPosition(clothCurrent.Color));
+
+                          Picasso.with(getContext())
+                                  .load(Uri.parse(clothCurrent.Image))
+                                  .placeholder(R.mipmap.ic_launcher)
+                                  //.fit()
+                                  .into(picture);
+                          //downloadUrl = Uri.parse(clothCurrent.Image);
+                          //downloadUrl = Uri.parse(clothCurrent.Image);
+                      }
+                      @Override
+                      public void onCancelled(DatabaseError error) {
+                          // Failed to read value
+                          Log.w(TAG, "Failed to read value.", error.toException());
+                      }
+                  }
+                  );
               }
               Log.d(TAG,"Editing? : "+EditID+"========================");
         return v;
@@ -211,7 +224,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
 //                        Toast.makeText(getActivity(),"Upload successful", Toast.LENGTH_LONG).show();
                         Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
                         while(!urlTask.isSuccessful());
-                        Uri downloadUrl = urlTask.getResult();
+                        downloadUrl = urlTask.getResult();
                         Clothing cothUpload = new Clothing(
                                         spinner2.getSelectedItem().toString(),
                                         spinner3.getSelectedItem().toString(),
@@ -219,7 +232,14 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                                 spinnerSubType.getSelectedItem().toString()
 
                                 );
-                        String uploadid = myRef.child(CType).push().getKey();
+
+                        String uploadid;
+                        if(EditID!=null){
+                            uploadid = EditID;
+                        }else{
+                            uploadid = myRef.child(CType).push().getKey();
+                        }
+
                         myRef.child(CType).child(uploadid).setValue(cothUpload);
                     }
                 })
@@ -229,7 +249,32 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+        }else if (EditID !=null){
+            String uploadid = EditID;
+            myRef.child(CType).child(uploadid).child("Color").setValue(spinner3.getSelectedItem().toString());
+            myRef.child(CType).child(uploadid).child("Store").setValue(spinner2.getSelectedItem().toString());
+            myRef.child(CType).child(uploadid).child("SubType").setValue( spinnerSubType.getSelectedItem().toString());
         }
     }
 
+    private void setSpinner(String Type){
+        ArrayAdapter<CharSequence> adapter;
+        switch(Type){
+            case "Shoes" :
+                adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subTypeShoes_array, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSubType.setAdapter(adapter);
+                break;
+            case "Pants" :
+                adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subTypePants_array, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSubType.setAdapter(adapter);
+                break;
+            default:
+                adapter = ArrayAdapter.createFromResource(getActivity(), R.array.closet_item_subType_array, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSubType.setAdapter(adapter);
+                break;
+        }
+    }
 }
