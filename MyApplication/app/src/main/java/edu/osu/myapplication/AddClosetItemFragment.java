@@ -172,9 +172,16 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                 Log.d(TAG,"image : "+ selectedImageUri);
 
                 if(EditID!=null){CType = Extras.getString("EditType");}
-                uploadFile();
+                if(selectedImageUri!=null){
+                    uploadFile();
+                    getActivity().finish();
+                }else{//IF no image
+                    Intent ImageGet = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(ImageGet, GET_FROM_GALLERY);
+                }
+
                 Log.d(TAG,"Users/"+mUsername+"/Closet/"+CType);
-                getActivity().finish();
+
 
                 break;
             case R.id.btnAddPicture:
@@ -249,11 +256,11 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-        }else if (EditID !=null){
+        }else if (EditID !=null) {
             String uploadid = EditID;
             myRef.child(CType).child(uploadid).child("Color").setValue(spinner3.getSelectedItem().toString());
             myRef.child(CType).child(uploadid).child("Store").setValue(spinner2.getSelectedItem().toString());
-            myRef.child(CType).child(uploadid).child("SubType").setValue( spinnerSubType.getSelectedItem().toString());
+            myRef.child(CType).child(uploadid).child("SubType").setValue(spinnerSubType.getSelectedItem().toString());
         }
     }
 
