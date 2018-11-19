@@ -145,7 +145,7 @@
     <string name="calender">Calendar</string>
     <string name="closet">Closet</string>
     <string name="account">Account</string>
-
+    <string name="logOut">Log Out</string>
     <!--Permissions-->
 
     <string name="title_location_permission">Location service Required for weather</string>

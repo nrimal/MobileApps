@@ -9,17 +9,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     private Intent currentRunning;
     private String TAG = getClass().getSimpleName();
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate(Bundle) called");
-
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -62,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
                         accountIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         currentRunning = accountIntent;
                         startActivity(accountIntent);
+                        return true;
+                    case R.id.logOut:
+                        mAuth.signOut();
+                        Intent logIn = new Intent(MainActivity.this, LoginActivity.class);
+                        logIn.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        currentRunning = logIn;
+                        startActivity(logIn);
+                        finish();
                         return true;
                     default:
                         return true;
