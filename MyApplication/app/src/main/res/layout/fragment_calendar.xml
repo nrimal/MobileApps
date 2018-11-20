@@ -14,5 +14,8 @@
     <CalendarView
         android:id="@+id/mycalendar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:foregroundTint="@color/colorPrimary"
+        android:foregroundTintMode="src_over"
+        android:theme="@style/AppTheme.NoActionBar" />
 </LinearLayout>
