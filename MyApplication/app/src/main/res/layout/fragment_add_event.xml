@@ -60,12 +60,16 @@
         android:id="@+id/add_event_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_event" />
+        android:text="@string/add_event"
+        android:background="@drawable/button"
+        />
 
     <Button
         android:id="@+id/add_event_cancel_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_event_cancel" />
+        android:text="@string/add_event_cancel"
+        android:background="@drawable/button"
+        />
 </LinearLayout>
 
