@@ -11,10 +11,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     >
 
-<TimePicker
-    android:id="@+id/add_event_timepicker"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <TimePicker
+        android:id="@+id/add_event_timepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:headerBackground="@color/colorPrimary"
+        android:numbersSelectorColor="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -40,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/event_name"/>
+            android:text="@string/event_category_text"/>
 
         <Spinner
             android:id="@+id/add_event_category_spinner"
@@ -57,12 +59,16 @@
         android:id="@+id/add_event_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_event" />
+        android:text="@string/add_event"
+        android:background="@drawable/button"
+        />
 
     <Button
         android:id="@+id/add_event_cancel_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_event_cancel" />
+        android:text="@string/add_event_cancel"
+        android:background="@drawable/button"
+        />
 </LinearLayout>
 
