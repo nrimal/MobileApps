@@ -62,7 +62,7 @@
     <string-array name="closet_item_subTypePants_array">
         <item>Athletic Shorts</item>
         <item>Chino Shorts</item>
-        <item>Jeans</item>
+        <item>Jean Pants</item>
         <item>Dress Pants</item>
         <item>Chino Pants</item>
         <item>Athletic Pants</item>
@@ -70,6 +70,7 @@
 
     <string-array name="closet_item_subTypeShoes_array">
         <item>Sandals</item>
+        <item>Sneakers</item>
         <item>Dress Shoes</item>
         <item>Athletic Shoes</item>
         <item>Boots</item>

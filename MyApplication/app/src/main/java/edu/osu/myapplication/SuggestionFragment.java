@@ -24,7 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -102,7 +109,36 @@ public class SuggestionFragment extends Fragment {
         clothingDBRetreive = new ArrayList<>();
 
         rand = new Random();
-        setNextEventCategory();
+        setGlobalVariables();
+
+        File directory = getContext().getFilesDir();
+        File file = new File(directory, "designPref");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            String st;
+            while ((st = br.readLine()) != null)
+                userDesignPref = st;
+        } catch (IOException e) {
+            userDesignPref = "Don't Care";
+        }
+
+        File file2 = new File(directory, "tempPref");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file2));
+
+            String st;
+            while ((st = br.readLine()) != null)
+                temperaturePref = Integer.parseInt(st);
+        } catch (IOException e) {
+            temperaturePref = 3;
+        }
+
+        if (userDesignPref == null) {
+            userDesignPref = "Don't Care";
+        }
+
+        getDefaultCategory();
         giveSuggestion();
 
         return v;
@@ -121,7 +157,7 @@ public class SuggestionFragment extends Fragment {
         getImageData(DataConstants.PANTS);
         getImageData(DataConstants.SHOES);
 
-        Toast val = Toast.makeText(getActivity(), "Generating new suggestion...", Toast.LENGTH_LONG);
+        Toast val = Toast.makeText(getActivity(), "Generating new suggestion...", Toast.LENGTH_SHORT);
         val.setGravity(Gravity.CENTER,0,0);
         val.show();
     }
@@ -192,7 +228,7 @@ public class SuggestionFragment extends Fragment {
                             List<Clothing> pants = new ArrayList<>();
                             String type;
 
-                            if (temperature > 65 - ((temperaturePref - 3) * 2)) {
+                            if (temperature > 65 - ((temperaturePref - 3) * 2) && !nextEventCategory.equals("Professional")) {
                                 type = "Shorts";
                             } else {
                                 type = "Pants";
@@ -200,17 +236,17 @@ public class SuggestionFragment extends Fragment {
 
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                     clothingItem = child.getValue(Clothing.class);
-                                    //if (clothingItem.SubType.contains(type)) {
+                                    if (clothingItem.SubType.contains(type)) {
                                         pants.add(clothingItem);
-                                        break;
-                                    //}
+                                    }
                             }
 
+                            type = getNextEventCategoryPants(type);
                             int count = 0;
-                            while (count < pants.size()) {
+                            while (count < 1000) {
                                 int index = rand.nextInt(pants.size());
                                 Clothing pantsSelection = pants.get(index);
-                                if (true /*pantsSelection.SubType.equals(getNextEventCategoryPants(type))*/) {
+                                if (pantsSelection.SubType.equals(type)) {
                                     clothingDBRetreive.add(pantsSelection);
                                     break;
                                 }
@@ -250,10 +286,10 @@ public class SuggestionFragment extends Fragment {
                             }
 
                             int count = 0;
-                            while (count < shoes.size()) {
+                            while (count < 100) {
                                 int index = rand.nextInt(shoes.size());
                                 Clothing shoesSelection = shoes.get(index);
-                                if (true /*shoessSelection.SubType.equals(getNextEventCategoryShoes(weather))*/) {
+                                if (shoesSelection.SubType.equals(getNextEventCategoryShoes(weather))) {
                                     clothingDBRetreive.add(shoesSelection);
                                     break;
                                 }
@@ -292,10 +328,6 @@ public class SuggestionFragment extends Fragment {
         Log.d(TAG, "onResume called");
     }
 
-    public void setNextEventCategory() {
-        nextEventCategory = "Professional";
-    }
-
     private String getNextEventCategoryPants(String type) {
         String value;
         switch (nextEventCategory) {
@@ -310,7 +342,7 @@ public class SuggestionFragment extends Fragment {
                 value = ((type.equals("Pants") ? "Athletic Pants" : "Athletic Shorts"));
                 break;
             default:
-                value = ((type.equals("Pants") ? "Jeans" : "Chino Shorts"));
+                value = ((type.equals("Pants") ? "Jean Pants" : "Chino Shorts"));
                 break;
         }
 
@@ -325,13 +357,13 @@ public class SuggestionFragment extends Fragment {
                 break;
             case "Business Casual":
             case "Romantic":
-                value = ((weather.equals("Cold") ? "Boots" : "Sandals"));
+                value = ((weather.equals("cold") ? "Boots" : "Sandals"));
                 break;
             case "Athletic":
                 value = "Athletic Shoes";
                 break;
             default:
-                value = ((weather.equals("Cold") ? "Boots" : "Athletic Shoes"));
+                value = ((weather.equals("cold") ? "Boots" : "Athletic Shoes"));
                 break;
         }
 
@@ -354,5 +386,79 @@ public class SuggestionFragment extends Fragment {
         return value;
     }
 
+    private void setGlobalVariables() {
+        String UUID = currentUser.getUid();
+        DatabaseReference eventRef = db.getReference("users/" + UUID + "/Calendar");
+        eventRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Log.d(TAG, dataSnapshot.toString());
+                getDefaultCategory();
 
+                Date today = new Date();
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                String todaysDate = dateFormat.format(today);
+                String todaysTime = (timeFormat).format(today);
+
+                for (DataSnapshot dateSnapshot: dataSnapshot.getChildren()) {
+                    Log.d(TAG, dateSnapshot.toString());
+                    String dateChild = dateSnapshot.getKey();
+                    if (dateChild.equals(todaysDate)) { // Only display events for selected date
+                        for (DataSnapshot timeItem : dateSnapshot.getChildren()) {
+                            Log.d(TAG, timeItem.toString());
+                            HashMap<String, String> map = (HashMap<String, String>) timeItem.getValue();
+                            String eventTime = map.get("hourKey") + map.get("minuteKey");
+
+                            if (compareTime(todaysTime, eventTime)) {
+                                nextEventCategory = map.get("eventCategoryKey");
+                                break;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    protected boolean compareTime(String today, String eventTime) {
+        int time1Int = Integer.parseInt(today);
+        int time2Int = Integer.parseInt(eventTime);
+
+        if (time1Int <= time2Int) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void getDefaultCategory() {
+        String value;
+
+        switch (userDesignPref) {
+            case "Hippy":
+                value = "Casual";
+                break;
+            case "Hipster":
+                value = "Romantic";
+                break;
+            case "Don't Care":
+                value = "Casual";
+                break;
+            default:
+                value = userDesignPref;
+                break;
+        }
+
+        nextEventCategory = value;
+    }
 }

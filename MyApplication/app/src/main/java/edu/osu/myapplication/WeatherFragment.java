@@ -2,13 +2,11 @@ package edu.osu.myapplication;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.net.Uri;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -19,8 +17,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,10 +71,23 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
         weatherIcon.setTypeface(weatherFont);
         checkLocationPermission();
 
+        final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if (!locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER )) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setTitle("No Location Available");
+            dialog.setMessage("We can't find your location. Weather information may be inaccurate.")
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    })
+                    .create()
+                    .show();
+        }
+
         return inflater.inflate(R.layout.fragment_weather, container, false);
     }
-
-
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getActivity(),

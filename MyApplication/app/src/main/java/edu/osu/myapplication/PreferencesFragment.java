@@ -1,6 +1,7 @@
 package edu.osu.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v14.preference.MultiSelectListPreference;
@@ -8,21 +9,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
-import android.util.Base64;
 import android.util.Log;
 
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -170,11 +168,37 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         if(Username!=null && !Username.equals("")){myRef.child("userName").setValue(Username);}
         if(Email!=null && !Email.equals("")){myRef.child("email").setValue(Email);
             mAuth.getCurrentUser().updateEmail(Email);}
-        myRef.child("pereferencePk").setValue(Design);
+        myRef.child("preferencePk").setValue(Design);
+
+        String filename = "designPref";
+        String fileContents = Design;
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(fileContents.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         List<String> StorePref =new ArrayList<>();
         if(Store!=null){StorePref.addAll(Store);}
         myRef.child("storePreferencePk").setValue(StorePref);
         myRef.child("tempPref").setValue(Temp);
+
+        String filename2 = "tempPref";
+        String fileContents2 = Design;
+        FileOutputStream outputStream2;
+
+        try {
+            outputStream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(fileContents.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if(Password!=null &&!Password.equals("")){mAuth.getCurrentUser().updatePassword(Password);}
         //Base64.encode();
         // Base64.decode();
