@@ -58,7 +58,6 @@ import static java.util.stream.Collectors.joining;
 public class AddClosetItemFragment extends Fragment implements View.OnClickListener{
 
     private final String TAG = getClass().getSimpleName();
-
     private Spinner spinner1, spinner2,spinner3,spinnerSubType;
     private Button btnSubmit,addPhoto;
     private ImageView picture;
@@ -98,7 +97,6 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
         {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 setSpinner(selectedItem);
             } // to close the onItemSelected
@@ -227,7 +225,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private String getFileExtension(Uri uri){
+    protected String getFileExtension(Uri uri){
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
@@ -276,7 +274,7 @@ public class AddClosetItemFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void setSpinner(String Type){
+    protected void setSpinner(String Type){
         ArrayAdapter<CharSequence> adapter;
         switch(Type){
             case "Shoes" :
