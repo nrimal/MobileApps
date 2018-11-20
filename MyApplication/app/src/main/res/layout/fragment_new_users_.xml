@@ -114,7 +114,9 @@
             android:gravity="center_horizontal|bottom"
             android:paddingTop="@dimen/register_margin"
             android:id="@+id/registerBtn"
-            android:text="@string/register" />
+            android:text="@string/register"
+            android:background="@drawable/button"
+            />
 
     </LinearLayout>
 
