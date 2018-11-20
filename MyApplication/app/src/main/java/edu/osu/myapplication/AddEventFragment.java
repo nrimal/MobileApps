@@ -57,7 +57,7 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         Username = mAuth.getCurrentUser().getUid()+"";
         database = FirebaseDatabase.getInstance().getReference().child("users").child(Username).child("Calendar");
 
-        if (extras.getInt("changeEvent") == 1) { // User is changing event, not adding
+        if (extras != null && extras.getInt("changeEvent") == 1) { // User is changing event, not adding
             // Populate widgets with current event data
             String time = extras.getString("changeEventTime");
             mEditText.setText(extras.getString("changeEventName"));
