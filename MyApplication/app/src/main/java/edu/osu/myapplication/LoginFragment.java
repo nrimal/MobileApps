@@ -41,16 +41,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mUsernameView = v.findViewById(R.id.username);
         mPasswordView = v.findViewById(R.id.password);
 
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    return true;
-                }
-                return false;
-            }
-        });
-
         Button mUsernameRegisterButton = v.findViewById(R.id.username_register_button);
         mUsernameRegisterButton.setOnClickListener(this);
 
@@ -58,9 +48,22 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mUsernameSignInButton.setOnClickListener(this);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null){ //if user is already signed in go to homepage
+        if(currentUser!=null && currentUser.isEmailVerified()){ //if user is already signed in go to homepage
             Intent homePage = new Intent(getActivity(), HomeActivity.class);
             startActivity(homePage);
+        }else {
+            if(currentUser!=null && !currentUser.isEmailVerified()){
+                mAuth.getCurrentUser().sendEmailVerification()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "Email sent.");
+                                    Toast.makeText(getActivity(), "Email hasn't been verified yet, please check your email for verification link", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
         }
         return v;
     }
@@ -78,17 +81,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         switch(v.getId()){
             case R.id.username_sign_in_button:
                   attemptSignIn();
-//                Intent ClosetIntent = new Intent(getActivity(),Closet.class);
-//                startActivity(ClosetIntent);
-//                Intent homeActivity = new Intent(getActivity(), HomeActivity.class);
-//                startActivity(homeActivity);
-//                Intent ClosetIntent = new Intent(getActivity(),ClosetActivity.class);
-//                startActivity(ClosetIntent);
 
                 break;
             case R.id.username_register_button:
-//                Intent PreferencesIntent = new Intent(getActivity(), PreferencesActivity.class);
-//                startActivity(PreferencesIntent);
                 Intent newUser = new Intent(getActivity(), NewUsersActivity.class);
                 startActivity(newUser);
                 break;
@@ -151,13 +146,29 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            Intent homeActivity = new Intent(getActivity(), MainActivity.class);
-                            startActivity(homeActivity);
-
+                            if(mAuth.getCurrentUser()!=null){
+                                if(!mAuth.getCurrentUser().isEmailVerified()){
+                                    mAuth.getCurrentUser().sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.d(TAG, "Email sent.");
+                                                        Toast.makeText(getActivity(), "Email hasn't been verified yet, please check your email for verification link", Toast.LENGTH_LONG).show();
+                                                        Intent loginActivity = new Intent(getActivity(), LoginActivity.class);
+                                                        startActivity(loginActivity);
+                                                    }
+                                                }
+                                            });
+                                }else{
+                                    Intent homeactivity = new Intent(getActivity(), HomeActivity.class);
+                                    startActivity(homeactivity);
+                                }
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed, please check if email and password are correct", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Authentication failed, please check if email and/or password is correct", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -29,7 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_add"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -45,7 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_shoes"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
 
         <LinearLayout
             android:visibility="gone"
@@ -62,7 +66,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_pants"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
 
             <LinearLayout
                 android:visibility="gone"
@@ -79,7 +85,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_tshirt"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
 
             <LinearLayout
                 android:visibility="gone"
@@ -96,7 +104,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_jacket"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
 
             <LinearLayout
                 android:visibility="gone"
@@ -113,7 +123,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/closet_shirt"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                />
 
             <LinearLayout
                 android:visibility="gone"

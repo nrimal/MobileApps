@@ -17,5 +17,10 @@
         android:id="@+id/account"
         android:title="@string/account"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/logOut"
+        android:title="@string/logOut"
+        app:showAsAction="always"/>
     </group>
 </menu>

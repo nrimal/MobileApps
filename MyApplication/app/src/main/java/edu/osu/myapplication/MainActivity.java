@@ -9,17 +9,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     private Intent currentRunning;
     private String TAG = getClass().getSimpleName();
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate(Bundle) called");
-
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         View menuItemView = findViewById(R.id.single_menu); // SAME ID AS MENU ID
         PopupMenu popupMenu = new PopupMenu(this, menuItemView);
         popupMenu.inflate(R.menu.menu_preferences);
+
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             @Override
@@ -41,22 +44,34 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.home_activity:
                         Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         currentRunning = homeIntent;
                         startActivity(homeIntent);
                         return true;
                     case R.id.calender:
                         Intent calendarIntent = new Intent(MainActivity.this, CalendarActivity.class);
+                        calendarIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(calendarIntent);
                         return true;
                     case R.id.closet:
                         Intent closetIntent = new Intent(MainActivity.this, ClosetActivity.class);
+                        closetIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         currentRunning = closetIntent;
                         startActivity(closetIntent);
                         return true;
                     case R.id.account:
                         Intent accountIntent = new Intent(MainActivity.this, PreferencesActivity.class);
+                        accountIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         currentRunning = accountIntent;
                         startActivity(accountIntent);
+                        return true;
+                    case R.id.logOut:
+                        mAuth.signOut();
+                        Intent logIn = new Intent(MainActivity.this, LoginActivity.class);
+                        logIn.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        currentRunning = logIn;
+                        startActivity(logIn);
+                        finish();
                         return true;
                     default:
                         return true;
