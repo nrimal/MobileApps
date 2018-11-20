@@ -46,15 +46,10 @@ public class AddClosetItemTest {
 
 
     private AddClosetItemFragment mFragment; // Fragment to be tested
-    //private ImageView mImage; // Member variable of activity
-    private Spinner spinnerType,spinnerSubType;
 
     @Before
     public void createAddClosetItemActivity() {
         mFragment = new AddClosetItemFragment();
-
-        //spinnerType=mFragment.getView().findViewById(R.id.spinner1);
-        //spinnerSubType=mFragment.getView().findViewById(R.id.spinnerSubType);
     }
         /*=====================================   Test Cases Here   =====================================*/
 

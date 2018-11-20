@@ -23,7 +23,7 @@ public class AddEventTest {
     private AddEventFragment mFragment; // Fragment to be tested
 
     @Before
-    public void createCalendarActivity() {
+    public void createAddEventActivity() {
         mFragment = new AddEventFragment();
     }
         /*=====================================   Test Cases Here   =====================================*/
