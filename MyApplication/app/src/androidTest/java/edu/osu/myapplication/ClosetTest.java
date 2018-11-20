@@ -7,7 +7,9 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import org.junit.Assert;
@@ -26,37 +28,40 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 
 @RunWith(AndroidJUnit4.class)
-public class AddClosetItemTest {
+public class ClosetTest {
     private final String TAG = super.getClass().getSimpleName();
 
     @Rule
-    public ActivityTestRule<AddClosetItemActivity> mActivity =
-            new ActivityTestRule(AddClosetItemActivity.class);
+    public ActivityTestRule<ClosetActivity> mActivity =
+            new ActivityTestRule(ClosetActivity.class);
 
 
-    private AddClosetItemFragment mFragment; // Fragment to be tested
+    private ClosetFragment mFragment; // Fragment to be tested
     //private ImageView mImage; // Member variable of activity
-    private Spinner spinnerType,spinnerSubType;
-
+    private Button Shoes,Pants;
+    private LinearLayout ShoesLayout,PantsLayout;
     @Before
     public void createAddClosetItemActivity() {
-        mFragment = new AddClosetItemFragment();
+        mFragment = new ClosetFragment();
 
         //spinnerType=mFragment.getView().findViewById(R.id.spinner1);
         //spinnerSubType=mFragment.getView().findViewById(R.id.spinnerSubType);
     }
-        /*=====================================   Test Cases Here   =====================================*/
+    /*=====================================   Test Cases Here   =====================================*/
 
     /*===== Required =====*/
     @Test
@@ -68,29 +73,42 @@ public class AddClosetItemTest {
     /*===== Other =====*/
 
     @Test
-    public void SubType_Default_isCorrect() {
-        onView(withId(R.id.spinner1)).perform(click()); //click on spinner 1
-        onData(allOf(is(instanceOf(String.class)), is("Shoes"))).perform(click());  // select "Shoes"
+    public void ShowHide_Shoes_isCorrect() {
 
-        onView(withId(R.id.spinner1)).check(matches(withSpinnerText("Shoes")));            //Assert "Shoes is selected
-        onView(withId(R.id.spinnerSubType)).check(matches(withSpinnerText("Sandals")));    //Assert "SubType is "Sandals"
+        onView(withId(R.id.showShoes)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.ShowHideShoes)).perform(click()); //click on
+        onView(withId(R.id.showShoes)).check(matches(isDisplayed()));
     }
+
     @Test
-    public void SubType_Pants_isCorrect() {
-        onView(withId(R.id.spinner1)).perform(click()); //click on spinner 1
-        onData(allOf(is(instanceOf(String.class)), is("Pants"))).perform(click());  // select "Pants"
+    public void ShowHide_Pants_isCorrect() {
 
-        onView(withId(R.id.spinner1)).check(matches(withSpinnerText("Pants")));            //Assert "Pants is selected
-        onView(withId(R.id.spinnerSubType)).check(matches(withSpinnerText("Athletic Shorts")));    //Assert "SubType is "Athletic Shorts"
+        onView(withId(R.id.showPants)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.ShowHidePants)).perform(click()); //click on
+        onView(withId(R.id.showPants)).check(matches(isDisplayed()));
     }
+
     @Test
-    public void SubType_Shirts_isCorrect() {
-        onView(withId(R.id.spinner1)).perform(click()); //click on spinner 1
-        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());  // select "Shirt"
+    public void ShowHide_TShirt_isCorrect() {
 
-        onView(withId(R.id.spinner1)).check(matches(withSpinnerText("Shirt")));            //Assert "Shirt is selected
-        onView(withId(R.id.spinnerSubType)).check(matches(withSpinnerText("None")));    //Assert "SubType is "None"
+        onView(withId(R.id.showTShirts)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.ShowHideTShirts)).perform(click()); //click on
+        onView(withId(R.id.showTShirts)).check(matches(isDisplayed()));
     }
 
+    @Test
+    public void ShowHide_Jacket_isCorrect() {
 
+        onView(withId(R.id.showJackets)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.ShowHideJackets)).perform(click()); //click on
+        onView(withId(R.id.showJackets)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void ShowHide_Shirt_isCorrect() {
+
+        onView(withId(R.id.showShirts)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.ShowHideShirts)).perform(click()); //click on
+        onView(withId(R.id.showShirts)).check(matches(isDisplayed()));
+    }
 }
