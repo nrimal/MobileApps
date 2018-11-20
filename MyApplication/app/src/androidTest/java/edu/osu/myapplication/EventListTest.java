@@ -23,7 +23,7 @@ public class EventListTest {
     private EventListFragment mFragment; // Fragment to be tested
 
     @Before
-    public void createCalendarActivity() {
+    public void createEventListActivity() {
         mFragment = new EventListFragment();
     }
         /*=====================================   Test Cases Here   =====================================*/
