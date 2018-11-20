@@ -83,7 +83,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Design = (String) dataSnapshot.getValue();
-                 ((ListPreference) findPreference("designPrefs")).setValue(Design);
+                ((ListPreference) findPreference("designPrefs")).setValue(Design);
 
             }
             @Override

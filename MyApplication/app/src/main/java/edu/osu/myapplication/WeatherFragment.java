@@ -2,13 +2,11 @@ package edu.osu.myapplication;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.net.Uri;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -20,8 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +51,6 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
 
 
     /*
-
     private static final String city_field_bundle_id = "city_field";
     private static final String detail_field_bundle_id = "detail_field";
     private static final String current_temperature_bundle_id = "current_temp_field";
@@ -63,7 +58,6 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     private static final String pressure_field_bundle_id = "pressure_field";
     private static final String updated_field_bundle_id = "update_field";
     private static final String weather_icon_bundle_id = "weather_icon";
-
      */
     private static String city_field_bundle_id;
     private static String detail_field_bundle_id;
@@ -94,6 +88,19 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
         weatherIcon.setTypeface(weatherFont);
         checkLocationPermission();
 
+        final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if (!locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER )) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setTitle("No Location Available");
+            dialog.setMessage("We can't find your location. Weather information may be inaccurate.")
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    })
+                    .create();
+        }
 
         Log.d(TAG,"onCreateView() called");
         return inflater.inflate(R.layout.fragment_weather, container, false);
@@ -190,7 +197,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
                 AlertDialog.Builder dialog =  new AlertDialog.Builder(getActivity());
                 dialog.setTitle(R.string.title_location_permission);
                 dialog.setMessage(R.string.text_location_permission)
-                      .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
@@ -239,8 +246,8 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
                     }
 
                 } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Location not enabled, using default", Toast.LENGTH_LONG).show();
-                        taskLoadUp(city, view);
+                    Toast.makeText(getActivity().getApplicationContext(), "Location not enabled, using default", Toast.LENGTH_LONG).show();
+                    taskLoadUp(city, view);
                 }
                 return;
             }
@@ -255,10 +262,10 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
     public void taskLoadUp(String query, View v) {
 
         if (Function.isNetworkAvailable(getActivity().getApplicationContext())) {
-                DownloadWeather task = new DownloadWeather(getActivity(), v);
-                task.execute(query);
-                lastFetched = new DateTime();
-            }else {
+            DownloadWeather task = new DownloadWeather(getActivity(), v);
+            task.execute(query);
+            lastFetched = new DateTime();
+        }else {
             Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
     }
@@ -278,7 +285,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
         protected String doInBackground(String...args) {
             String xml = "";
             if(LocationService.longitude!=null && LocationService.latitude!=null){
-               xml = Function.excuteGet("http://api.openweathermap.org/data/2.5/weather?lat="+LocationService.latitude+ "&lon="+LocationService.longitude + "&units=imperial&appid=" + OPEN_WEATHER_MAP_API);
+                xml = Function.excuteGet("http://api.openweathermap.org/data/2.5/weather?lat="+LocationService.latitude+ "&lon="+LocationService.longitude + "&units=imperial&appid=" + OPEN_WEATHER_MAP_API);
             }else{
                 xml = Function.excuteGet("http://api.openweathermap.org/data/2.5/weather?q=" + args[0] +
                         "&units=imperial&appid=" + OPEN_WEATHER_MAP_API);
@@ -341,7 +348,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener{
                             json.getJSONObject("sys").getLong("sunset") * 1000);
                     weatherIcon.setText(Html.fromHtml(weather_icon_bundle_id));
 
-                   loader.setVisibility(View.INVISIBLE);
+                    loader.setVisibility(View.INVISIBLE);
                 }
             } catch (JSONException e) {
                 Toast.makeText(getActivity().getApplicationContext(), "Error, Check City", Toast.LENGTH_SHORT).show();

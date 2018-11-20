@@ -184,5 +184,4 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return password.length() > 4;
     }
 
-
 }
