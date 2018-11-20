@@ -180,6 +180,7 @@ public class ClosetFragment extends Fragment implements View.OnClickListener {
     private void AddItem(final String ID,final String Type, Clothing item){
 
         //Format Layout
+        if(this.getActivity()==null){return;}
         LinearLayout layout = new LinearLayout(
                 this.getActivity()
         );

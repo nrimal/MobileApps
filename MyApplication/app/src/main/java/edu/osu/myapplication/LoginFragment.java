@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
-    private AutoCompleteTextView mUsernameView;
+    private EditText mUsernameView;
     private EditText mPasswordView;
     private FirebaseAuth mAuth;
 

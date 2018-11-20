@@ -2,8 +2,8 @@
     <string name="app_name" translatable="false">What to Wear</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_username" translatable="false">Username</string>
-    <string name="prompt_password" translatable="false">Password (optional)</string>
+    <string name="prompt_username" translatable="false">Email</string>
+    <string name="prompt_password" translatable="false">Password </string>
     <string name="action_sign_in" translatable="false">Sign in</string>
     <string name="action_register" translatable="false">Register</string>
     <string name="action_sign_in_short" translatable="false">Sign in</string>
