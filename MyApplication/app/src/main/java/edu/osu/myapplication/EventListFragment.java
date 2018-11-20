@@ -69,11 +69,14 @@ public class EventListFragment extends Fragment {
 
     public String getCurrentDate() {
         Bundle extras = getActivity().getIntent().getExtras();
-        int year = extras.getInt("year");
-        int month = extras.getInt("month") + 1; // Jan = 0 so add 1 to get Jan = 1
-        int dayOfMonth = extras.getInt("dayOfMonth");
+        if (extras != null) {
+            int year = extras.getInt("year");
+            int month = extras.getInt("month") + 1; // Jan = 0 so add 1 to get Jan = 1
+            int dayOfMonth = extras.getInt("dayOfMonth");
+            return String.format("%04d%02d%02d", year, month, dayOfMonth);
+        }
 
-        return String.format("%04d%02d%02d", year, month, dayOfMonth);
+        return "";
     }
 
     public void populateEventList() {
